@@ -1284,15 +1284,21 @@ function renderPerson(){
   let rows=dailyData.filter(x=>String(x.name).toUpperCase()===name);
   rows=filterRows(rows,p,$("personDay").value,$("personMonth").value,$("personYear").value);
 
-  const t=aggregate(rows);
-  // TAMBAHKAN INI
-  const hasData=rows.length>0;
+    const t=aggregate(rows);
 
-  // UBAH score(t) MENJADI score(t,hasData)
-  const s=score(t,hasData);
+  // Cek apakah marketing memiliki data pada periode yang dipilih
+  const hasData = rows.length > 0;
 
-  const bigLeadRate=t.followUp?((t.bigLead/t.followUp)*100):0;
-  const complaintRate=t.followUp?((t.complaint/t.followUp)*100):0;
+  // Hitung skor KPI berdasarkan data aktual
+  const s = score(t, hasData);
+
+  const bigLeadRate = t.followUp
+    ? ((t.bigLead / t.followUp) * 100)
+    : 0;
+
+  const complaintRate = t.followUp
+    ? ((t.complaint / t.followUp) * 100)
+    : 0;
 
   const metrics=[
     ["Follow Up",t.followUp,TARGET.followUp,WEIGHT.followUp],
