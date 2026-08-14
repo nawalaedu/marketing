@@ -1256,14 +1256,13 @@ function renderTeam(){
 
   const t=aggregate(r);
 
-  // Ada data hanya jika terdapat minimal 1 baris input
-  const hasData=r.length>0;
+const hasData=r.length>0;
 
-  return {
-    name,
-    t,
-    score:score(t,hasData)
-  };
+return {
+  name,
+  t,
+  score:score(t,hasData,p,r.length)
+};
 }).sort((a,b)=>b.score-a.score);
 
   $("rankingTable").innerHTML=ranking.map((x,i)=>`
