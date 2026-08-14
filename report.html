@@ -1184,17 +1184,51 @@ function pctComplaint(value,target,hasData=true){
   );
 }
 
-function score(t, hasData=false){
-  // Belum ada aktivitas sama sekali
+function score(t, hasData=false, period="day", jumlahData=1){
+  // Belum ada data
   if(!hasData) return 0;
 
+  // Target dasar = target harian
+  let target = {
+    followUp: TARGET.followUp,
+    bcGmail: TARGET.bcGmail,
+    content: TARGET.content,
+    complaint: TARGET.complaint,
+    bigLead: TARGET.bigLead,
+    share: TARGET.share
+  };
+
+  // Jika BULANAN, target harian x jumlah data/hari yang tersedia
+  if(period==="month"){
+    const faktor = Math.max(1, jumlahData);
+
+    target.followUp *= faktor;
+    target.bcGmail *= faktor;
+    target.content *= faktor;
+    target.complaint *= faktor;
+    target.bigLead *= faktor;
+    target.share *= faktor;
+  }
+
+  // Jika TAHUNAN, target harian x jumlah data
+  if(period==="year"){
+    const faktor = Math.max(1, jumlahData);
+
+    target.followUp *= faktor;
+    target.bcGmail *= faktor;
+    target.content *= faktor;
+    target.complaint *= faktor;
+    target.bigLead *= faktor;
+    target.share *= faktor;
+  }
+
   const s =
-    pct(t.followUp,TARGET.followUp)*WEIGHT.followUp+
-    pct(t.bcGmail,TARGET.bcGmail)*WEIGHT.bcGmail+
-    pct(t.content,TARGET.content)*WEIGHT.content+
-    pctComplaint(t.complaint,TARGET.complaint,true)*WEIGHT.complaint+
-    pct(t.bigLead,TARGET.bigLead)*WEIGHT.bigLead+
-    pct(t.share,TARGET.share)*WEIGHT.share;
+    pct(t.followUp,target.followUp)*WEIGHT.followUp+
+    pct(t.bcGmail,target.bcGmail)*WEIGHT.bcGmail+
+    pct(t.content,target.content)*WEIGHT.content+
+    pctComplaint(t.complaint,target.complaint,true)*WEIGHT.complaint+
+    pct(t.bigLead,target.bigLead)*WEIGHT.bigLead+
+    pct(t.share,target.share)*WEIGHT.share;
 
   return Math.min(100,s);
 }
