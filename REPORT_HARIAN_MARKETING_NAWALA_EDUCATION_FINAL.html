@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPORT HARIAN MARKETING</title>
+<style>
+:root{--primary:#183b56;--secondary:#2f6f95;--bg:#f4f7fa;--card:#fff;--text:#1d2939;--muted:#667085;--border:#e4e7ec;--success:#16805b;--warning:#b54708;--danger:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#183b56,#2f6f95);color:#fff;padding:28px 20px}header h1{margin:0 0 6px;font-size:28px}header p{margin:0;opacity:.9}
+.container{max-width:1250px;margin:0 auto;padding:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);padding:10px;border-radius:12px;margin-bottom:18px;position:sticky;top:8px;z-index:5}
+button,select,input{font:inherit}button{border:0;border-radius:9px;padding:10px 15px;cursor:pointer;font-weight:600}
+.nav button{background:#f2f4f7;color:#344054}.nav button.active{background:var(--primary);color:#fff}
+.primary{background:var(--primary);color:#fff}.secondary{background:#e8f1f6;color:var(--primary)}.danger{background:#fee4e2;color:var(--danger)}
+.page{display:none}.page.active{display:block}.hidden{display:none!important}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 2px 8px rgba(16,24,40,.04)}
+.card h2,.card h3{margin-top:0}.hint{color:var(--muted);font-size:13px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px;color:#344054}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d0d5dd;border-radius:9px;background:#fff;outline:none;font:inherit;resize:vertical}
+input:focus,select:focus{border-color:var(--secondary);box-shadow:0 0 0 3px rgba(47,111,149,.12)}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+.message{margin-top:12px;font-size:14px;font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px}.kpi{background:#fff;border:1px solid var(--border);border-radius:12px;padding:15px}.kpi small{display:block;color:var(--muted);font-weight:600}.kpi strong{display:block;font-size:25px;margin-top:5px}.kpi.green{border-left:4px solid var(--success)}
+table{width:100%;border-collapse:collapse}.table-wrap{overflow:auto}th,td{border-bottom:1px solid var(--border);padding:10px 9px;text-align:left;font-size:13px;white-space:nowrap}th{background:#f8fafc;color:#475467}
+.badge{display:inline-block;border-radius:20px;padding:4px 9px;font-size:12px;font-weight:700}.p1{background:#fee4e2;color:#b42318}.p2{background:#ffead5;color:#b54708}.p3{background:#dcfae6;color:#087443}.ro{background:#dbeafe;color:#175cd3}
+.lock{text-align:center;max-width:500px;margin:30px auto}.lock input{max-width:320px}.score{font-size:36px;font-weight:800}.progress{height:10px;background:#eaecf0;border-radius:20px;overflow:hidden;margin-top:8px}.progress>div{height:100%;background:var(--secondary)}
+.notice{padding:12px;border-radius:9px;background:#eff8ff;color:#175cd3;font-size:13px;margin-bottom:15px}
+.status{font-size:12px;font-weight:700}.online{color:var(--success)}.offline{color:var(--danger)}
+.pc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:900px){.grid,.grid4{grid-template-columns:repeat(2,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.grid,.grid2,.grid4,.pc-grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}header h1{font-size:23px}}
+
+.modal{position:fixed;inset:0;background:rgba(16,24,40,.62);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal.hidden{display:none}
+.modal-box{position:relative;background:#fff;width:min(850px,100%);max-height:90vh;overflow:auto;border-radius:16px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.modal-close{position:absolute;right:16px;top:12px;background:transparent;color:#475467;font-size:30px;padding:2px 8px;line-height:1}
+.modal-close:hover{background:#f2f4f7}
+.indicator-list{display:grid;gap:13px;margin-top:18px}
+.indicator-item{border:1px solid var(--border);border-left:5px solid var(--secondary);border-radius:10px;padding:15px;background:#fcfcfd}
+.indicator-item.p3{border-left-color:#12b76a}
+.indicator-item.p2{border-left-color:#f79009}
+.indicator-item.p1{border-left-color:#f04438}
+.indicator-item.ro{border-left-color:#2e90fa}
+.indicator-item.nfr{border-left-color:#667085}
+.indicator-title{font-size:16px;font-weight:800;margin-bottom:7px}
+.indicator-item p{margin:7px 0;color:#475467;line-height:1.5}
+.indicator-item ul{margin:8px 0;padding-left:20px;color:#475467;line-height:1.6}
+.badge.nfr{background:#eaecf0;color:#344054}
+.indicator-flow{margin-top:18px;padding:15px;background:#f8fafc;border:1px solid var(--border);border-radius:10px;line-height:2.2}
+</style>
+
+<style>
+:root{
+  --brand-1:#183B63;
+  --brand-2:#2E6F95;
+  --ink:#18324A;
+  --muted:#6B7C8F;
+  --panel:#ffffff;
+  --line:#DCE6EF;
+  --p1:#E9B949;
+  --p2:#6BAED6;
+  --p3:#79C2A0;
+  --ro:#8D7CC4;
+  --nfr:#9AA6B2;
+}
+
+body{
+  background:
+    radial-gradient(circle at 10% 0%, rgba(46,111,149,.12), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(24,59,99,.10), transparent 30%),
+    linear-gradient(135deg,#F6F9FC 0%,#EEF4F8 100%);
+  color:var(--ink);
+}
+
+.brand-header{
+  width:min(1180px,calc(100% - 32px));
+  margin:22px auto 8px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.brand-mark{
+  width:48px;height:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-weight:900;font-size:24px;
+  background:linear-gradient(135deg,var(--brand-1),var(--brand-2));
+  box-shadow:0 10px 24px rgba(24,59,99,.22);
+}
+.brand-name{
+  font-size:20px;font-weight:900;letter-spacing:.2px;
+}
+.brand-tagline{
+  color:var(--muted);font-size:12px;margin-top:2px;
+}
+
+.card,.panel,.box,.section,.dashboard-card{
+  border:1px solid rgba(220,230,239,.9);
+  box-shadow:0 12px 32px rgba(31,59,82,.08);
+  border-radius:18px;
+  background:rgba(255,255,255,.92);
+}
+
+.kpi{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px !important;
+  border:1px solid rgba(255,255,255,.65) !important;
+  box-shadow:0 10px 24px rgba(31,59,82,.10) !important;
+  background:linear-gradient(145deg,#fff,#f5f8fb) !important;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.kpi:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 30px rgba(31,59,82,.14) !important;
+}
+.kpi:before{
+  content:"";
+  position:absolute;
+  width:90px;height:90px;
+  right:-35px;top:-35px;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+}
+.kpi small,.kpi strong{position:relative;z-index:1}
+
+.pc-kpi{
+  min-height:110px;
+}
+.pc-p1{
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.45),transparent 22%),
+    linear-gradient(145deg,#F4D27A,#E7B947) !important;
+  color:#513A0A !important;
+  text-align:center !important;
+}
+.pc-p1 small,.pc-p1 strong{
+  display:block;
+  text-align:center !important;
+}
+.pc-p2{
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.48),transparent 22%),
+    linear-gradient(145deg,#A9D6EE,#69A9CE) !important;
+}
+.pc-p3{
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.48),transparent 22%),
+    linear-gradient(145deg,#A8DDC4,#72BD9E) !important;
+}
+.pc-ro{
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.48),transparent 22%),
+    linear-gradient(145deg,#C9BCE9,#9585C7) !important;
+}
+.pc-nfr{
+  background:
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.55),transparent 22%),
+    linear-gradient(145deg,#D8DEE5,#9CA8B4) !important;
+}
+
+h1,h2,h3{
+  color:var(--brand-1);
+}
+button,.btn{
+  border-radius:12px !important;
+  transition:transform .16s ease,box-shadow .16s ease;
+}
+button:hover,.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(31,59,82,.12);
+}
+</style>
+
+
+<style>
+/* FINAL VISUAL REVISION */
+body{
+  background:
+    radial-gradient(circle at 8% 12%, rgba(46,111,149,.10), transparent 28%),
+    radial-gradient(circle at 92% 85%, rgba(24,59,99,.08), transparent 30%),
+    #f3f7fa;
+}
+
+.main-brand-header{
+  position:relative;
+  width:min(1180px,calc(100% - 32px));
+  margin:22px auto 16px;
+  min-height:150px;
+  overflow:hidden;
+  border-radius:24px;
+  color:#fff;
+  background-image:url("https://i.pinimg.com/1200x/33/ab/48/33ab48bdc433358578c634fd91089d08.jpg");
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 18px 45px rgba(24,59,99,.18);
+}
+.main-brand-header .header-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,
+    rgba(12,31,52,.84) 0%,
+    rgba(18,48,75,.68) 52%,
+    rgba(12,31,52,.48) 100%);
+}
+.main-brand-header .header-content{
+  position:relative;
+  z-index:2;
+  min-height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.header-title h1{
+  color:#fff !important;
+  margin:0 0 8px;
+  font-size:clamp(25px,3vw,38px);
+  letter-spacing:.3px;
+  text-shadow:0 2px 12px rgba(0,0,0,.22);
+}
+.header-title p{
+  color:rgba(255,255,255,.9) !important;
+  margin:0;
+}
+.header-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  flex-shrink:0;
+}
+.header-brand .brand-mark{
+  width:44px;height:44px;
+  background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:none;
+}
+.header-brand .brand-name{
+  color:#fff;
+  font-size:18px;
+}
+.header-brand .brand-tagline{
+  color:rgba(255,255,255,.76);
+}
+
+.brand-header{display:none !important;}
+
+.potential-recap-card{
+  padding-bottom:22px;
+}
+.potential-kpis{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+  align-items:stretch;
+  margin-bottom:22px;
+}
+.potential-kpis .pc-kpi{
+  min-height:105px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.potential-kpis .pc-p1{
+  transform:scale(1.02);
+  box-shadow:0 14px 30px rgba(183,139,36,.20) !important;
+}
+.potential-kpis .pc-p3{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.48),transparent 23%),
+    linear-gradient(145deg,#C9B6EF,#9878CF) !important;
+  color:#30204F !important;
+}
+.potential-kpis .pc-p2{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.48),transparent 23%),
+    linear-gradient(145deg,#A7D9F1,#67A9D0) !important;
+}
+.potential-kpis .pc-ro{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.48),transparent 23%),
+    linear-gradient(145deg,#C7E0D0,#80B99A) !important;
+}
+.potential-kpis .pc-nfr{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.52),transparent 23%),
+    linear-gradient(145deg,#D8DDE5,#A1ABB7) !important;
+}
+
+.pc-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+  align-items:start;
+}
+.pc-detail{
+  overflow:hidden;
+}
+.pc-detail h3{
+  text-align:center;
+  margin:0;
+  padding:13px;
+  border-radius:14px 14px 0 0;
+}
+.pc-detail-p1{
+  order:2;
+}
+.pc-detail-p2{
+  order:1;
+}
+.pc-detail-p3{
+  order:3;
+}
+.pc-detail-p1 h3{
+  background:linear-gradient(135deg,#A8DDBA,#39A96B);
+  color:#103B25;
+}
+.pc-detail-p2 h3{
+  background:linear-gradient(135deg,#FFE69A,#E9B949);
+  color:#4A3600;
+}
+.pc-detail-p3 h3{
+  background:linear-gradient(135deg,#C9B6EF,#9878CF);
+  color:#30204F;
+}
+
+@media(max-width:900px){
+  .main-brand-header .header-content{
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:22px;
+    padding-bottom:22px;
+  }
+  .potential-kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .potential-kpis .pc-p1{
+    grid-column:1 / -1;
+    grid-row:1;
+  }
+  .pc-grid{
+    grid-template-columns:1fr;
+  }
+  .pc-detail-p1,.pc-detail-p2,.pc-detail-p3{
+    order:initial;
+  }
+}
+</style>
+
+
+<style id="potential-layout-v3">
+/* ===== Potential Customer: vertical P1/P2/P3 ===== */
+#pcKpis{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:14px !important;
+}
+
+#pcKpis .pc-p1,
+#pcKpis .pc-p2,
+#pcKpis .pc-p3,
+#pcKpis .pc-ro,
+#pcKpis .pc-nfr{
+  text-align:center !important;
+}
+
+#pcKpis .pc-p1{
+  background:linear-gradient(145deg,#8FD3A8,#39A96B) !important;
+  color:#103B25 !important;
+}
+
+#pcKpis .pc-p2{
+  background:linear-gradient(145deg,#FFE69A,#E9B949) !important;
+  color:#4A3600 !important;
+}
+
+#pcKpis .pc-p3{
+  background:linear-gradient(145deg,#D5B8F2,#8E5BC2) !important;
+  color:#35154F !important;
+}
+
+#pcKpis .pc-ro{
+  background:linear-gradient(145deg,#A8D8E8,#3B91B1) !important;
+  color:#07384A !important;
+}
+
+#pcKpis .pc-nfr{
+  background:linear-gradient(145deg,#D7DCE3,#707B89) !important;
+  color:#202832 !important;
+}
+
+/* Detail blocks below the summary */
+#pcDetails{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:18px !important;
+  width:100% !important;
+}
+
+#pcDetails .pc-detail-section{
+  width:100% !important;
+  box-sizing:border-box !important;
+  border-radius:20px !important;
+  padding:18px !important;
+  box-shadow:0 10px 26px rgba(31,59,82,.10) !important;
+}
+
+#pcDetails .pc-detail-section.pc-detail-p1{
+  background:linear-gradient(145deg,#EAF8EF,#C7EBD5) !important;
+  border-left:7px solid #39A96B !important;
+}
+
+#pcDetails .pc-detail-section.pc-detail-p2{
+  background:linear-gradient(145deg,#FFF9E6,#FCE6A6) !important;
+  border-left:7px solid #E9B949 !important;
+}
+
+#pcDetails .pc-detail-section.pc-detail-p3{
+  background:linear-gradient(145deg,#F5ECFC,#DEC8F1) !important;
+  border-left:7px solid #8E5BC2 !important;
+}
+
+#pcDetails .pc-detail-title{
+  text-align:center !important;
+  font-weight:900 !important;
+  font-size:18px !important;
+  margin-bottom:12px !important;
+}
+
+#pcDetails .pc-detail-table{
+  width:100% !important;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  #pcKpis{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+  #pcKpis .pc-p1{
+    grid-column:1/-1 !important;
+  }
+}
+
+@media(max-width:560px){
+  #pcKpis{
+    grid-template-columns:1fr !important;
+  }
+  #pcKpis .pc-p1{
+    grid-column:auto !important;
+  }
+}
+
+/* ===== Statistik Potential Customer: unique colors, fixed order ===== */
+.potential-stat-list,
+#teamPotentialKpis,
+#personPotentialKpis,
+#personPotentialHtml{
+  --p1:#39A96B;
+  --p2:#E9B949;
+  --p3:#8E5BC2;
+  --ro:#3B91B1;
+  --nfr:#707B89;
+}
+
+.potential-stat-list .p1,
+#teamPotentialKpis .p1,
+#personPotentialKpis .p1,
+#personPotentialHtml .p1{color:#39A96B !important;}
+
+.potential-stat-list .p2,
+#teamPotentialKpis .p2,
+#personPotentialKpis .p2,
+#personPotentialHtml .p2{color:#E9B949 !important;}
+
+.potential-stat-list .p3,
+#teamPotentialKpis .p3,
+#personPotentialKpis .p3,
+#personPotentialHtml .p3{color:#8E5BC2 !important;}
+
+.potential-stat-list .ro,
+#teamPotentialKpis .ro,
+#personPotentialKpis .ro,
+#personPotentialHtml .ro{color:#3B91B1 !important;}
+
+.potential-stat-list .nfr,
+#teamPotentialKpis .nfr,
+#personPotentialKpis .nfr,
+#personPotentialHtml .nfr{color:#707B89 !important;}
+</style>
+
+
+<style>
+/* If the dashboard uses cards instead of #pcDetails, force the three detail cards into rows. */
+.potential-detail-grid{
+  display:flex !important;
+  flex-direction:column !important;
+  width:100% !important;
+  gap:18px !important;
+}
+.potential-detail-grid > *{
+  width:100% !important;
+}
+</style>
+
+
+<style id="potential-final-v4">
+/* ===== POTENTIAL CUSTOMER DETAIL: P1 -> P2 -> P3, FULL WIDTH ===== */
+.pc-grid{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:20px !important;
+  width:100% !important;
+}
+
+.pc-grid .pc-detail{
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+}
+
+.pc-grid .pc-detail-p1{
+  order:1 !important;
+  background:linear-gradient(135deg,#EAF8EF 0%,#C5EBD4 100%) !important;
+  border-left:8px solid #39A96B !important;
+}
+
+.pc-grid .pc-detail-p2{
+  order:2 !important;
+  background:linear-gradient(135deg,#FFF9E5 0%,#F8E19A 100%) !important;
+  border-left:8px solid #E9B949 !important;
+}
+
+.pc-grid .pc-detail-p3{
+  order:3 !important;
+  background:linear-gradient(135deg,#F6EDFC 0%,#DCC3F0 100%) !important;
+  border-left:8px solid #8E5BC2 !important;
+}
+
+.pc-grid .pc-detail h3{
+  text-align:center !important;
+  font-weight:900 !important;
+  margin:4px 0 16px !important;
+}
+
+.pc-grid .table-wrap{
+  width:100% !important;
+}
+
+/* ===== STATISTIK POTENTIAL CUSTOMER: P1, P2, P3, RO, NFR ===== */
+#teamPotentialKpis,
+#personPotentialHtml .kpis{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+
+/* Make each category visually unique; no repeated indicator/bullet colors. */
+#teamPotentialKpis .potential-stat-p1,
+#personPotentialHtml .potential-stat-p1{
+  background:linear-gradient(145deg,#8FD3A8,#39A96B) !important;
+  color:#103B25 !important;
+}
+#teamPotentialKpis .potential-stat-p2,
+#personPotentialHtml .potential-stat-p2{
+  background:linear-gradient(145deg,#FFE69A,#E9B949) !important;
+  color:#4A3600 !important;
+}
+#teamPotentialKpis .potential-stat-p3,
+#personPotentialHtml .potential-stat-p3{
+  background:linear-gradient(145deg,#D5B8F2,#8E5BC2) !important;
+  color:#35154F !important;
+}
+#teamPotentialKpis .potential-stat-ro,
+#personPotentialHtml .potential-stat-ro{
+  background:linear-gradient(145deg,#A8D8E8,#3B91B1) !important;
+  color:#07384A !important;
+}
+#teamPotentialKpis .potential-stat-nfr,
+#personPotentialHtml .potential-stat-nfr{
+  background:linear-gradient(145deg,#D7DCE3,#707B89) !important;
+  color:#202832 !important;
+}
+
+@media(max-width:900px){
+  #teamPotentialKpis,
+  #personPotentialHtml .kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:560px){
+  #teamPotentialKpis,
+  #personPotentialHtml .kpis{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
+
+
+<style id="final-color-revision">
+/* FINAL: Header colors harmonized with dashboard background */
+.header,
+.hero,
+.title-card,
+.top-header,
+header.main-header{
+  background:
+    linear-gradient(135deg,rgba(246,249,252,.96),rgba(238,244,248,.96)) !important;
+  color:#183B63 !important;
+  border:1px solid rgba(220,230,239,.95) !important;
+  box-shadow:0 10px 28px rgba(31,59,82,.08) !important;
+}
+
+/* Nawala Education brand area follows the same background tone */
+.brand-header{
+  background:
+    linear-gradient(135deg,rgba(246,249,252,.96),rgba(238,244,248,.96)) !important;
+  border:1px solid rgba(220,230,239,.95) !important;
+  box-shadow:0 10px 28px rgba(31,59,82,.08) !important;
+}
+
+/* Potential Customer detail cards: P1 and P2 use the same family
+   of colors as their category cards, but softer for readability. */
+.pc-grid .pc-detail-p1{
+  background:
+    linear-gradient(135deg,#EAF8EF 0%,#D8F0E1 100%) !important;
+  border-left:8px solid #39A96B !important;
+}
+
+.pc-grid .pc-detail-p2{
+  background:
+    linear-gradient(135deg,#FFF9E5 0%,#F8E8B5 100%) !important;
+  border-left:8px solid #E9B949 !important;
+}
+
+/* Keep P3 unchanged: purple */
+.pc-grid .pc-detail-p3{
+  background:
+    linear-gradient(135deg,#F6EDFC 0%,#DCC3F0 100%) !important;
+  border-left:8px solid #8E5BC2 !important;
+}
+</style>
+
+</head>
+<body>
+<header class="main-brand-header">
+  <div class="header-overlay"></div>
+  <div class="container header-content">
+    <div class="header-title">
+      <h1>REPORT HARIAN MARKETING</h1>
+      <p>Input aktivitas, potential customer, dan analisis KPI marketing.</p>
+    </div>
+    <div class="header-brand">
+      <div class="brand-mark">N</div>
+      <div>
+        <div class="brand-name">Nawala Education</div>
+        <div class="brand-tagline">Marketing Performance Dashboard</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="nav">
+    <button class="active" onclick="showPage('input',this)">📝 Input Harian</button>
+    <button onclick="showPage('potential',this)">🎯 Potential Customer</button>
+    <button onclick="openReport(this)">🔒 Statistik</button><button onclick="openIndicator()">💡 Indikator</button>
+  </div>
+
+  <!-- INPUT -->
+  <section id="input" class="page active">
+    <div class="card">
+      <h2>📝 Input Aktivitas Harian</h2>
+      <div class="notice">Data disimpan ke Google Spreadsheet melalui Apps Script. Jika nama dan tanggal yang sama diinput kembali, data akan diperbarui.</div>
+      <div class="grid">
+        <div><label>Tanggal</label><input type="date" id="dDate"></div>
+        <div><label>Nama Marketing</label><select id="dName"></select></div>
+        <div><label>Jumlah Follow Up</label><input type="number" id="dFollowUp" min="0" value="0"></div>
+        <div><label>Jumlah BC Gmail</label><input type="number" id="dBc" min="0" value="0"></div>
+        <div><label>Upload Konten</label><input type="number" id="dContent" min="0" value="0"></div>
+        <div><label>Jumlah Komplain</label><input type="number" id="dComplaint" min="0" value="0"></div>
+        <div><label>Jumlah Big Lead</label><input type="number" id="dBigLead" min="0" value="0"></div>
+        <div><label>Berapa Kali Share Grup</label><input type="number" id="dShare" min="0" value="0"></div>
+        <div style="grid-column:1/-1"><label>Rincian Aktivitas Harian</label><textarea id="dDetail" rows="4" placeholder="Jelaskan aktivitas yang dilakukan hari ini secara lebih rinci..."></textarea></div>
+      </div>
+      <div class="form-actions"><button class="primary" onclick="saveDaily()">💾 Simpan Aktivitas</button></div>
+      <div id="dailyMsg" class="message"></div>
+    </div>
+
+    <div class="card">
+      <h2>Data Input Hari Sebelumnya</h2>
+      <p class="hint" id="prevLabel"></p>
+      <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Follow Up</th><th>BC Gmail</th><th>Konten</th><th>Komplain</th><th>Big Lead</th><th>Share</th><th>Rincian Aktivitas</th></tr></thead><tbody id="prevTable"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- POTENTIAL -->
+  <section id="potential" class="page">
+    <div class="card">
+      <h2>🎯 Input Potential Customer</h2>
+      <p class="hint">Customer yang sama berdasarkan nama + nomor akan diperbarui. Contoh: hari ini P2, besok P1 → tetap satu customer dengan prioritas terakhir P1. Jika menjadi NFR (No Further Response), customer tidak ditampilkan rinciannya; status NFR tetap dihitung dalam jumlah rekap.</p>
+      <div class="grid">
+        <div><label>Tanggal</label><input type="date" id="pDate"></div>
+        <div><label>Nama Marketing</label><select id="pName"></select></div>
+        <div><label>Nama Customer</label><input id="pCustomer" placeholder="Nama customer"></div>
+        <div><label>Nomor</label><input id="pPhone" placeholder="Nomor WhatsApp/telepon"></div>
+        <div><label>Prioritas</label><select id="pPriority"><option>P1</option><option>P2</option><option>P3</option><option>RO</option><option>NFR</option></select></div>
+      </div>
+      <div class="form-actions"><button class="primary" onclick="savePotential()">💾 Simpan / Update Customer</button></div>
+      <div id="potentialMsg" class="message"></div>
+    </div>
+
+    <div class="card potential-recap-card">
+      <h2>Rekap Potential Customer</h2>
+      <div class="kpis potential-kpis" id="pcKpis"></div>
+
+      <div class="pc-grid">
+<div class="card pc-detail pc-detail-p1">
+          <h3>P1</h3>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP1"></tbody></table></div>
+        </div>
+
+<div class="card pc-detail pc-detail-p2">
+          <h3>P2</h3>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP2"></tbody></table></div>
+        </div>
+
+<div class="card pc-detail pc-detail-p3">
+          <h3>P3</h3>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP3"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT LOCK -->
+  <section id="report" class="page">
+    <div id="reportLock" class="card lock">
+      <h2>🔒 Statistik</h2>
+      <p class="hint">Masukkan password untuk membuka laporan.</p>
+      <input type="password" id="reportPassword" placeholder="Password" onkeydown="if(event.key==='Enter')unlockReport()">
+      <div class="form-actions" style="justify-content:center"><button class="primary" onclick="unlockReport()">Buka Laporan</button></div>
+      <div id="reportMsg" class="message"></div>
+    </div>
+
+    <div id="reportContent" class="hidden">
+      <div class="nav" style="position:static">
+        <button class="active" onclick="showReportTab('teamTab',this)">📈 Ringkasan Total Tim</button>
+        <button onclick="showReportTab('personTab',this)">👤 Per Orang</button>
+      </div>
+
+      <div id="teamTab">
+        <div class="card">
+          <h2>📈 Ringkasan Total Tim</h2>
+          <div class="grid">
+            <div><label>Periode</label><select id="teamPeriod" onchange="renderTeam()"><option value="day">Harian</option><option value="month">Bulanan</option><option value="year">Tahunan</option><option value="all">Seluruh Waktu</option></select></div>
+            <div id="teamDayBox"><label>Tanggal</label><input type="date" id="teamDay" onchange="renderTeam()"></div>
+            <div id="teamMonthBox" class="hidden"><label>Bulan</label><input type="month" id="teamMonth" onchange="renderTeam()"></div>
+            <div id="teamYearBox" class="hidden"><label>Tahun</label><input type="number" id="teamYear" min="2000" max="2100" onchange="renderTeam()"></div>
+          </div>
+        </div>
+        <div class="kpis" id="teamKpis"></div>
+        <div class="card">
+          <h3>🎯 Jumlah Potential Customer per Kategori</h3>
+          <div class="kpis" id="teamPotentialKpis"></div>
+          <p class="hint">P1, P2, P3, RO, dan NFR dihitung sebagai jumlah. Rincian customer hanya tersedia untuk P3, P2, dan P1.</p>
+        </div>
+        <div class="card"><h2>🏆 Ranking Marketing</h2><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Marketing</th><th>Skor KPI</th><th>Follow Up</th><th>BC Gmail</th><th>Konten</th><th>Komplain</th><th>Big Lead</th><th>Share</th></tr></thead><tbody id="rankingTable"></tbody></table></div></div>
+      </div>
+
+      <div id="personTab" class="hidden">
+        <div class="card">
+          <h2>👤 Analisis Per Orang</h2>
+          <div class="grid">
+            <div><label>Marketing</label><select id="personName" onchange="renderPerson()"></select></div>
+            <div><label>Periode</label><select id="personPeriod" onchange="renderPerson()"><option value="day">Harian</option><option value="month">Bulanan</option><option value="year">Tahunan</option><option value="all">Seluruh Waktu</option></select></div>
+            <div id="personDayBox"><label>Tanggal</label><input type="date" id="personDay" onchange="renderPerson()"></div>
+            <div id="personMonthBox" class="hidden"><label>Bulan</label><input type="month" id="personMonth" onchange="renderPerson()"></div>
+            <div id="personYearBox" class="hidden"><label>Tahun</label><input type="number" id="personYear" min="2000" max="2100" onchange="renderPerson()"></div>
+          </div>
+        </div>
+        <div id="personResult"></div>
+      </div>
+
+      <div class="form-actions"><button class="danger" onclick="lockReport()">🔒 Kunci Lagi</button></div>
+    </div>
+  </section>
+</div>
+
+
+<div id="indicatorModal" class="modal hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeIndicator()">×</button>
+    <h2>💡 Indikator Potential Customer</h2>
+    <p class="hint">Gunakan indikator berikut sebagai pedoman yang konsisten saat menentukan status setiap potential customer.</p>
+
+    <div class="indicator-list">
+      <div class="indicator-item p3">
+        <div class="indicator-title"><span class="badge p3">P3</span> Tanya</div>
+        <p>Customer masih berada pada tahap awal komunikasi dan baru bertanya atau mencari informasi.</p>
+        <ul>
+          <li>Baru menanyakan produk, layanan, harga, atau informasi umum.</li>
+          <li>Belum mengirimkan data/nama secara lengkap.</li>
+          <li>Belum menunjukkan komitmen untuk melakukan order.</li>
+        </ul>
+        <strong>Contoh:</strong> “Kak, harganya berapa?” atau “Boleh minta informasi lengkapnya?”
+      </div>
+
+      <div class="indicator-item p2">
+        <div class="indicator-title"><span class="badge p2">P2</span> Sudah Kirim Nama</div>
+        <p>Customer sudah memberikan identitas/nama dan menunjukkan ketertarikan yang lebih serius.</p>
+        <ul>
+          <li>Sudah mengirimkan nama.</li>
+          <li>Sudah memberikan informasi yang diperlukan untuk proses berikutnya.</li>
+          <li>Masih memerlukan follow up sebelum masuk tahap pembayaran.</li>
+        </ul>
+        <strong>Contoh:</strong> customer sudah memberikan nama dan meminta proses atau informasi lanjutan.
+      </div>
+
+      <div class="indicator-item p1">
+        <div class="indicator-title"><span class="badge p1">P1</span> Hampir Pembayaran</div>
+        <p>Customer sudah berada pada tahap akhir sebelum pembayaran.</p>
+        <ul>
+          <li>Sudah menyatakan siap mengambil/order.</li>
+          <li>Sudah membahas detail pembayaran atau proses transaksi.</li>
+          <li>Tinggal menunggu pembayaran atau penyelesaian tahap terakhir.</li>
+        </ul>
+        <strong>Contoh:</strong> customer sudah siap melakukan pembayaran tetapi transaksi belum masuk.
+      </div>
+
+      <div class="indicator-item ro">
+        <div class="indicator-title"><span class="badge ro">RO</span> Repeat Order</div>
+        <p>Customer yang sebelumnya sudah pernah order dan kembali melakukan pemesanan (Repeat Order).</p>
+        <ul>
+          <li>Customer kembali melakukan order.</li>
+          <li>Repeat order sudah dikonfirmasi sesuai prosedur tim.</li>
+          <li>Status customer dapat dipindahkan menjadi RO setelah repeat order dikonfirmasi.</li>
+        </ul>
+      </div>
+
+      <div class="indicator-item nfr">
+        <div class="indicator-title"><span class="badge nfr">NFR</span> No Further Response</div>
+        <p>Customer tidak memberikan respons lebih lanjut setelah dilakukan follow up selama 3 hari.</p>
+        <ul>
+          <li>Sudah dilakukan follow up secara wajar.</li>
+          <li>Tidak ada respons dari customer selama 3 hari follow up.</li>
+          <li>Customer dipindahkan ke NFR dan tidak ditampilkan rinciannya, tetapi jumlah NFR tetap masuk rekap.</li>
+        </ul>
+        <strong>Catatan:</strong> NFR tetap disimpan sebagai riwayat/status terakhir customer.
+      </div>
+    </div>
+
+    <div class="indicator-flow">
+      <strong>Alur status:</strong>
+      <span class="badge p3">P3</span> → <span class="badge p2">P2</span> → <span class="badge p1">P1</span> → <span class="badge ro">RO</span>
+      <br>
+      <span class="hint">Jika tidak ada respons setelah 3 hari follow up: → <span class="badge nfr">NFR</span></span>
+    </div>
+  </div>
+</div>
+<footer>REPORT HARIAN MARKETING • Database Google Sheets • Dashboard GitHub</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby0A8j-aEc2oJ4Q6U6tthQqjawLCL4VzXxJ9w76rU9zhQIqSPEt-5cmmzGSUwtrkJSe/exec";
+const REPORT_PASSWORD = "Nawala1";
+const MARKETING = ["AMAL","ADI","FADLI","KEKE","ZIZI","FIRGO"];
+
+const TARGET = {
+  followUp:10,
+  bcGmail:50,
+  content:5,
+  complaint:5,
+  bigLead:5,
+  share:10
+};
+
+const WEIGHT = {
+  followUp:.20,
+  bcGmail:.15,
+  content:.10,
+  complaint:.10,
+  bigLead:.35,
+  share:.10
+};
+
+let dailyData = [];
+let potentialData = [];
+let reportUnlocked = false;
+
+const $ = id => document.getElementById(id);
+const today = new Date().toISOString().slice(0,10);
+
+function esc(v){
+  return String(v ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+
+function openIndicator(){
+  $("indicatorModal").classList.remove("hidden");
+}
+function closeIndicator(){
+  $("indicatorModal").classList.add("hidden");
+}
+$("indicatorModal")?.addEventListener("click",function(e){
+  if(e.target===this) closeIndicator();
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape") closeIndicator();
+});
+
+function showPage(id,btn){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  $(id).classList.add("active");
+  document.querySelectorAll(".nav:first-of-type button").forEach(x=>x.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  if(id==="potential") renderPotential();
+  if(id==="input") renderPreviousDay();
+}
+
+function openReport(btn){
+  showPage("report",btn);
+  if(!reportUnlocked){
+    $("reportLock").classList.remove("hidden");
+    $("reportContent").classList.add("hidden");
+    $("reportPassword").value="";
+  }
+}
+
+function unlockReport(){
+  if($("reportPassword").value === REPORT_PASSWORD){
+    reportUnlocked=true;
+    $("reportLock").classList.add("hidden");
+    $("reportContent").classList.remove("hidden");
+    renderTeam();
+    renderPerson();
+    $("reportMsg").textContent="";
+  }else{
+    $("reportMsg").style.color="var(--danger)";
+    $("reportMsg").textContent="Password salah.";
+  }
+}
+
+function lockReport(){
+  reportUnlocked=false;
+  $("reportContent").classList.add("hidden");
+  $("reportLock").classList.remove("hidden");
+  $("reportPassword").value="";
+}
+
+function showReportTab(id,btn){
+  $("teamTab").classList.toggle("hidden",id!=="teamTab");
+  $("personTab").classList.toggle("hidden",id!=="personTab");
+  document.querySelectorAll("#reportContent > .nav button").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  if(id==="teamTab") renderTeam();
+  else renderPerson();
+}
+
+async function loadData(){
+  try{
+    const res=await fetch(API_URL+"?action=data",{cache:"no-store"});
+    const json=await res.json();
+    if(!json.ok) throw new Error(json.message||"Gagal mengambil data");
+    dailyData=json.daily||[];
+    potentialData=json.potential||[];
+    renderPreviousDay();
+    renderPotential();
+    if(reportUnlocked){renderTeam();renderPerson();}
+  }catch(err){
+    console.error(err);
+    $("dailyMsg").style.color="var(--danger)";
+    $("dailyMsg").textContent="Gagal mengambil data dari Google Sheets. Periksa URL Web App dan deployment.";
+  }
+}
+
+async function postData(payload){
+  /* Apps Script menerima POST. mode no-cors digunakan agar browser GitHub dapat mengirim data.
+     Setelah kirim, dashboard mengambil ulang data melalui GET. */
+  await fetch(API_URL,{
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload)
+  });
+}
+
+async function saveDaily(){
+  const item={
+    action:"daily",
+    date:$("dDate").value,
+    name:$("dName").value,
+    followUp:Number($("dFollowUp").value||0),
+    bcGmail:Number($("dBc").value||0),
+    content:Number($("dContent").value||0),
+    complaint:Number($("dComplaint").value||0),
+    bigLead:Number($("dBigLead").value||0),
+    share:Number($("dShare").value||0),
+    detail:$("dDetail").value.trim()
+  };
+  if(!item.date||!item.name){
+    $("dailyMsg").style.color="var(--danger)";
+    $("dailyMsg").textContent="Tanggal dan nama marketing wajib diisi.";
+    return;
+  }
+  $("dailyMsg").style.color="var(--secondary)";
+  $("dailyMsg").textContent="Menyimpan...";
+  try{
+    await postData(item);
+    $("dailyMsg").style.color="var(--success)";
+    $("dailyMsg").textContent="✓ Data dikirim ke Google Sheets.";
+    await new Promise(r=>setTimeout(r,900));
+    await loadData();
+  }catch(e){
+    $("dailyMsg").style.color="var(--danger)";
+    $("dailyMsg").textContent="Gagal mengirim data.";
+  }
+}
+
+async function savePotential(){
+  const item={
+    action:"potential",
+    date:$("pDate").value,
+    name:$("pName").value,
+    customer:$("pCustomer").value.trim(),
+    phone:$("pPhone").value.trim(),
+    priority:$("pPriority").value
+  };
+  if(!item.date||!item.name||!item.customer||!item.phone){
+    $("potentialMsg").style.color="var(--danger)";
+    $("potentialMsg").textContent="Semua kolom wajib diisi.";
+    return;
+  }
+  $("potentialMsg").style.color="var(--secondary)";
+  $("potentialMsg").textContent="Menyimpan...";
+  try{
+    await postData(item);
+    $("potentialMsg").style.color="var(--success)";
+    $("potentialMsg").textContent="✓ Customer berhasil dikirim. Jika sudah ada, prioritas diperbarui.";
+    $("pCustomer").value="";
+    $("pPhone").value="";
+    await new Promise(r=>setTimeout(r,900));
+    await loadData();
+  }catch(e){
+    $("potentialMsg").style.color="var(--danger)";
+    $("potentialMsg").textContent="Gagal mengirim data.";
+  }
+}
+
+function previousDate(){
+  const d=new Date();
+  d.setDate(d.getDate()-1);
+  return d.toISOString().slice(0,10);
+}
+
+function renderPreviousDay(){
+  const date=previousDate();
+  const rows=dailyData.filter(x=>String(x.date).slice(0,10)===date)
+    .sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  $("prevLabel").textContent="Hanya menampilkan input tanggal "+date+" (H-1).";
+  $("prevTable").innerHTML=rows.length?rows.map(x=>`
+    <tr><td>${esc(x.name)}</td><td>${num(x.followUp)}</td><td>${num(x.bcGmail)}</td>
+    <td>${num(x.content)}</td><td>${num(x.complaint)}</td><td>${num(x.bigLead)}</td><td>${num(x.share)}</td><td style="white-space:normal;min-width:260px">${esc(x.detail||"-")}</td></tr>
+  `).join(""):`<tr><td colspan="8">Belum ada data untuk ${date}.</td></tr>`;
+}
+
+function renderPotential(){
+  // Rekap aktif:
+  // P1, P2, P3 = jumlah + rincian
+  // RO, NFR = jumlah saja, tanpa rincian
+  const count={P1:0,P2:0,P3:0,RO:0,NFR:0};
+
+  potentialData.forEach(x=>{
+    const p=String(x.priority||"").trim().toUpperCase();
+    if(count[p]!==undefined) count[p]++;
+  });
+
+  // P1 dibuat paling menonjol sebagai urgensi follow-up.
+  $("pcKpis").innerHTML=`
+    <div class="kpi" style="border:2px solid #dc2626">
+      <small>P1</small>
+      <strong>${count.P1}</strong>
+    </div>
+    <div class="kpi">
+      <small>P2</small>
+      <strong>${count.P2}</strong>
+    </div>
+    <div class="kpi">
+      <small>P3</small>
+      <strong>${count.P3}</strong>
+    </div>
+    <div class="kpi">
+      <small>RO</small>
+      <strong>${count.RO}</strong>
+    </div>
+    <div class="kpi">
+      <small>NFR</small>
+      <strong>${count.NFR}</strong>
+    </div>
+  `;
+
+  // P1, P2, P3 saja yang dirinci.
+  ["P1","P2","P3"].forEach(p=>{
+    const rows=potentialData.filter(x=>
+      String(x.priority||"").trim().toUpperCase()===p
+    ).sort((a,b)=>
+      String(a.name||"").localeCompare(String(b.name||"")) ||
+      String(a.customer||"").localeCompare(String(b.customer||""))
+    );
+
+    const id={P1:"pcP1",P2:"pcP2",P3:"pcP3"}[p];
+
+    if($(id)){
+      $(id).innerHTML=rows.length?rows.map(x=>`
+        <tr>
+          <td>${esc(x.name)}</td>
+          <td>${esc(x.customer)}</td>
+          <td>${esc(x.phone)}</td>
+          <td>${esc(String(x.date).slice(0,10))}</td>
+        </tr>
+      `).join(""):`<tr><td colspan="4">Tidak ada data.</td></tr>`;
+    }
+  });
+
+  // Pastikan tidak ada rincian RO/NFR yang dirender.
+  if($("pcRO")) $("pcRO").innerHTML="";
+  if($("pcNFR")) $("pcNFR").innerHTML="";
+}
+
+function filterRows(rows,period,day,month,year){
+  if(period==="all") return rows;
+  if(period==="day") return rows.filter(x=>String(x.date).slice(0,10)===day);
+  if(period==="month") return rows.filter(x=>String(x.date).slice(0,7)===month);
+  if(period==="year") return rows.filter(x=>String(x.date).slice(0,4)===String(year));
+  return rows;
+}
+
+function aggregate(rows){
+  const t={followUp:0,bcGmail:0,content:0,complaint:0,bigLead:0,share:0};
+  rows.forEach(x=>{
+    Object.keys(t).forEach(k=>t[k]+=num(x[k]));
+  });
+  return t;
+}
+
+function num(v){
+  const n=Number(v);
+  return isNaN(n)?0:n;
+}
+
+function pct(value,target){
+  if(!target) return 0;
+
+  // Jika belum ada data sama sekali, KPI = 0%
+  if(value === null || value === undefined || value === "") return 0;
+
+  return Math.min(100,(Number(value)/target)*100);
+}
+
+function pctComplaint(value,target,hasData=true){
+  if(!hasData) return 0;
+
+  if(!target) return 0;
+
+  // Jika sudah ada data dan komplain = 0,
+  // maka pencapaian KPI komplain = 100%
+  if(Number(value) === 0) return 100;
+
+  // Semakin banyak komplain, semakin rendah KPI
+  return Math.max(
+    0,
+    Math.min(100,100-(Number(value)/target)*100)
+  );
+}
+
+function score(t, hasData=false){
+  // Belum ada aktivitas sama sekali
+  if(!hasData) return 0;
+
+  const s =
+    pct(t.followUp,TARGET.followUp)*WEIGHT.followUp+
+    pct(t.bcGmail,TARGET.bcGmail)*WEIGHT.bcGmail+
+    pct(t.content,TARGET.content)*WEIGHT.content+
+    pctComplaint(t.complaint,TARGET.complaint,true)*WEIGHT.complaint+
+    pct(t.bigLead,TARGET.bigLead)*WEIGHT.bigLead+
+    pct(t.share,TARGET.share)*WEIGHT.share;
+
+  return Math.min(100,s);
+}
+
+function renderTeam(){
+  const p=$("teamPeriod").value;
+  $("teamDayBox").classList.toggle("hidden",p!=="day");
+  $("teamMonthBox").classList.toggle("hidden",p!=="month");
+  $("teamYearBox").classList.toggle("hidden",p!=="year");
+
+  const rows=filterRows(
+    dailyData,
+    p,
+    $("teamDay").value,
+    $("teamMonth").value,
+    $("teamYear").value
+  );
+  const t=aggregate(rows);
+
+  $("teamKpis").innerHTML=[
+    ["Follow Up",t.followUp],
+    ["BC Gmail",t.bcGmail],
+    ["Upload Konten",t.content],
+    ["Komplain",t.complaint],
+    ["Big Lead",t.bigLead],
+    ["Share Grup",t.share]
+  ].map(x=>`<div class="kpi"><small>${x[0]}</small><strong>${x[1]}</strong></div>`).join("");
+
+
+  const teamPotential = potentialData.filter(x=>{
+    const d=String(x.date||"").slice(0,10);
+
+    if(p==="day") return d===String($("teamDay").value);
+    if(p==="month") return d.slice(0,7)===String($("teamMonth").value);
+    if(p==="year") return d.slice(0,4)===String($("teamYear").value);
+    return true;
+  });
+
+  const teamPotentialCount={P1:0,P2:0,P3:0,RO:0,NFR:0};
+  teamPotential.forEach(x=>{
+    const ps=String(x.priority||"").trim().toUpperCase();
+    if(teamPotentialCount[ps]!==undefined) teamPotentialCount[ps]++;
+  });
+
+  $("teamPotentialKpis").innerHTML=[
+    ["P1","potential-stat-p1"],
+    ["P2","potential-stat-p2"],
+    ["P3","potential-stat-p3"],
+    ["RO","potential-stat-ro"],
+    ["NFR","potential-stat-nfr"]
+  ].map(x=>`
+    <div class="kpi ${x[1]}"><small>${x[0]}</small><strong>${teamPotentialCount[x[0]]}</strong></div>
+  `).join("");
+
+  const ranking=MARKETING.map(name=>{
+  const r=rows.filter(
+    x=>String(x.name).toUpperCase()===name
+  );
+
+  const t=aggregate(r);
+
+  // Ada data hanya jika terdapat minimal 1 baris input
+  const hasData=r.length>0;
+
+  return {
+    name,
+    t,
+    score:score(t,hasData)
+  };
+}).sort((a,b)=>b.score-a.score);
+
+  $("rankingTable").innerHTML=ranking.map((x,i)=>`
+    <tr><td><strong>${i+1}</strong></td><td><strong>${x.name}</strong></td>
+    <td><strong>${x.score.toFixed(1)}%</strong></td>
+    <td>${x.t.followUp}</td><td>${x.t.bcGmail}</td><td>${x.t.content}</td>
+    <td>${x.t.complaint}</td><td>${x.t.bigLead}</td><td>${x.t.share}</td></tr>
+  `).join("");
+}
+
+function renderPerson(){
+  const p=$("personPeriod").value;
+  $("personDayBox").classList.toggle("hidden",p!=="day");
+  $("personMonthBox").classList.toggle("hidden",p!=="month");
+  $("personYearBox").classList.toggle("hidden",p!=="year");
+
+  const name=$("personName").value;
+  let rows=dailyData.filter(x=>String(x.name).toUpperCase()===name);
+  rows=filterRows(rows,p,$("personDay").value,$("personMonth").value,$("personYear").value);
+
+  const t=aggregate(rows);
+  const s=score(t);
+  const bigLeadRate=t.followUp?((t.bigLead/t.followUp)*100):0;
+  const complaintRate=t.followUp?((t.complaint/t.followUp)*100):0;
+
+  const metrics=[
+    ["Follow Up",t.followUp,TARGET.followUp,WEIGHT.followUp],
+    ["BC Gmail",t.bcGmail,TARGET.bcGmail,WEIGHT.bcGmail],
+    ["Upload Konten",t.content,TARGET.content,WEIGHT.content],
+    ["Komplain",t.complaint,TARGET.complaint,WEIGHT.complaint],
+    ["Big Lead",t.bigLead,TARGET.bigLead,WEIGHT.bigLead],
+    ["Share Grup",t.share,TARGET.share,WEIGHT.share]
+  ];
+
+  const detailHtml = p==="day" ? `
+    <div class="card">
+      <h2>📝 Rincian Aktivitas Harian</h2>
+      ${rows.length ? rows.map(x=>`
+        <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+          <strong>${esc(String(x.date).slice(0,10))}</strong>
+          <div class="hint" style="margin-top:6px;white-space:pre-wrap">${esc(x.detail||"Tidak ada rincian aktivitas.")}</div>
+        </div>
+      `).join("") : `<div class="hint">Tidak ada rincian aktivitas pada tanggal/periode yang dipilih.</div>`}
+    </div>` : "";
+
+  const personPotential = potentialData.filter(x=>{
+    const samePerson =
+      String(x.name||"").toUpperCase()===String(name||"").toUpperCase();
+
+    if(!samePerson) return false;
+
+    const d = String(x.date||"").slice(0,10);
+
+    if(p==="day") return d === String($("personDay").value);
+    if(p==="month") return d.slice(0,7) === String($("personMonth").value);
+    if(p==="year") return d.slice(0,4) === String($("personYear").value);
+    return true;
+  });
+
+  const personPotentialCount={P1:0,P2:0,P3:0,RO:0,NFR:0};
+  personPotential.forEach(x=>{
+    const ps=String(x.priority||"").trim().toUpperCase();
+    if(personPotentialCount[ps]!==undefined) personPotentialCount[ps]++;
+  });
+
+  const personPotentialHtml=`
+    <div class="card">
+      <h3>🎯 Rekap Potential Customer — ${esc(name)}</h3>
+      <div class="kpis">
+        <div class="kpi potential-stat-p1"><small>P1</small><strong>${personPotentialCount.P1}</strong></div>
+        <div class="kpi potential-stat-p2"><small>P2</small><strong>${personPotentialCount.P2}</strong></div>
+        <div class="kpi potential-stat-p3"><small>P3</small><strong>${personPotentialCount.P3}</strong></div>
+        <div class="kpi potential-stat-ro"><small>RO</small><strong>${personPotentialCount.RO}</strong></div>
+        <div class="kpi potential-stat-nfr"><small>NFR</small><strong>${personPotentialCount.NFR}</strong></div>
+      </div>
+      <p class="hint">RO dan NFR hanya ditampilkan sebagai jumlah, tanpa rincian customer.</p>
+    </div>
+  `;
+
+  $("personResult").innerHTML=`
+    <div class="grid4">
+      <div class="card"><small>Skor KPI</small><div class="score">${s.toFixed(1)}%</div></div>
+      <div class="card"><small>Big Lead Conversion</small><div class="score">${bigLeadRate.toFixed(1)}%</div></div>
+      <div class="card"><small>Complaint Rate</small><div class="score">${complaintRate.toFixed(1)}%</div></div>
+      <div class="card"><small>Hari Input</small><div class="score">${new Set(rows.map(x=>String(x.date).slice(0,10))).size}</div></div>
+    </div>
+    <div class="card">
+      <h2>Pencapaian KPI ${esc(name)}</h2>
+      ${metrics.map(m=>{
+        const achievement=m[0]==="Komplain"
+          ? (m[1]===0?100:Math.max(0,100-(m[1]/m[2])*100))
+          : pct(m[1],m[2]);
+        return `<div style="margin:16px 0">
+          <div style="display:flex;justify-content:space-between;font-size:13px">
+            <strong>${m[0]}</strong><span>${m[1]} / ${m[2]} • ${achievement.toFixed(1)}%</span>
+          </div>
+          <div class="progress"><div style="width:${achievement}%"></div></div>
+        </div>`;
+      }).join("")}
+    </div>
+    ${personPotentialHtml}
+    ${detailHtml}
+  `;
+}
+
+function init(){
+  const selects=["dName","pName","personName"];
+  selects.forEach(id=>{
+    MARKETING.forEach(n=>$(id).add(new Option(n,n)));
+  });
+
+  $("dDate").value=today;
+  $("pDate").value=today;
+  $("teamDay").value=today;
+  $("teamMonth").value=today.slice(0,7);
+  $("teamYear").value=today.slice(0,4);
+  $("personDay").value=today;
+  $("personMonth").value=today.slice(0,7);
+  $("personYear").value=today.slice(0,4);
+
+  loadData();
+}
+
+init();
+</script>
+<!-- Daily detail field is supported by the matching Apps Script backend. -->
+</body>
+</html>
