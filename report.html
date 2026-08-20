@@ -711,11 +711,27 @@ header.main-header{
     <div class="card">
       <h2>🎯 Input Potential Customer</h2>
       <p class="hint">Customer diperbarui kategorinya berdasarkan input terakhir. Jika menjadi NFR & RO, customer tidak akan ditampilkan lagi rinciannya; namun tetap dihitung dalam jumlah rekap.</p>
+      <div class="notice">🔄 <strong>Update otomatis:</strong> 1 nomor WhatsApp/telepon = 1 customer aktif. Jika customer yang sama berubah dari P2 → P1, datanya dipindahkan ke P1, bukan dibuat baris baru.</div>
       <div class="grid">
         <div><label>Tanggal</label><input type="date" id="pDate"></div>
         <div><label>Nama Marketing</label><select id="pName"></select></div>
         <div><label>Nama Customer</label><input id="pCustomer" placeholder="Nama customer"></div>
         <div><label>Nomor</label><input id="pPhone" placeholder="Nomor WhatsApp/telepon"></div>
+        <div>
+          <label>Sumber Informasi</label>
+          <select id="pSource">
+            <option value="">Pilih sumber informasi</option>
+            <option>Facebook</option>
+            <option>WhatsApp</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+            <option>Website</option>
+            <option>Referral</option>
+            <option>Telepon</option>
+            <option>Teman/Keluarga</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
         <div><label>Prioritas</label><select id="pPriority"><option>P1</option><option>P2</option><option>P3</option><option>RO</option><option>NFR</option></select></div>
       </div>
       <div class="form-actions"><button class="primary" onclick="savePotential()">💾 Simpan / Update Customer</button></div>
@@ -729,17 +745,17 @@ header.main-header{
       <div class="pc-grid">
 <div class="card pc-detail pc-detail-p1">
           <h3>P1</h3>
-          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP1"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Sumber Informasi</th><th>Tgl Update</th></tr></thead><tbody id="pcP1"></tbody></table></div>
         </div>
 
 <div class="card pc-detail pc-detail-p2">
           <h3>P2</h3>
-          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP2"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Sumber Informasi</th><th>Tgl Update</th></tr></thead><tbody id="pcP2"></tbody></table></div>
         </div>
 
 <div class="card pc-detail pc-detail-p3">
           <h3>P3</h3>
-          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Tgl Update</th></tr></thead><tbody id="pcP3"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Marketing</th><th>Customer</th><th>Nomor</th><th>Sumber Informasi</th><th>Tgl Update</th></tr></thead><tbody id="pcP3"></tbody></table></div>
         </div>
       </div>
     </div>
@@ -1035,24 +1051,31 @@ async function savePotential(){
     name:$("pName").value,
     customer:$("pCustomer").value.trim(),
     phone:$("pPhone").value.trim(),
+    source:$("pSource").value,
     priority:$("pPriority").value
   };
-  if(!item.date||!item.name||!item.customer||!item.phone){
+
+  if(!item.date||!item.name||!item.customer||!item.phone||!item.source){
     $("potentialMsg").style.color="var(--danger)";
-    $("potentialMsg").textContent="Semua kolom wajib diisi.";
+    $("potentialMsg").textContent="Tanggal, marketing, customer, nomor, sumber informasi, dan prioritas wajib diisi.";
     return;
   }
+
   $("potentialMsg").style.color="var(--secondary)";
-  $("potentialMsg").textContent="Menyimpan...";
+  $("potentialMsg").textContent="Menyimpan / memperbarui customer...";
+
   try{
     await postData(item);
     $("potentialMsg").style.color="var(--success)";
-    $("potentialMsg").textContent="✓ Customer berhasil dikirim. Jika sudah ada, prioritas diperbarui.";
+    $("potentialMsg").textContent="✓ Customer diperbarui. Jika nomor sudah ada, data lama TIDAK ditambah; status, sumber, marketing, dan tanggal diperbarui.";
     $("pCustomer").value="";
     $("pPhone").value="";
+    $("pSource").value="";
+    $("pPriority").value="P1";
     await new Promise(r=>setTimeout(r,900));
     await loadData();
   }catch(e){
+    console.error(e);
     $("potentialMsg").style.color="var(--danger)";
     $("potentialMsg").textContent="Gagal mengirim data.";
   }
@@ -1076,9 +1099,7 @@ function renderPreviousDay(){
 }
 
 function renderPotential(){
-  // Rekap aktif:
-  // P1, P2, P3 = jumlah + rincian
-  // RO, NFR = jumlah saja, tanpa rincian
+  // potentialData dari backend sudah berupa 1 record aktif per nomor customer.
   const count={P1:0,P2:0,P3:0,RO:0,NFR:0};
 
   potentialData.forEach(x=>{
@@ -1086,7 +1107,6 @@ function renderPotential(){
     if(count[p]!==undefined) count[p]++;
   });
 
-  // P1 dibuat paling menonjol sebagai urgensi follow-up.
   $("pcKpis").innerHTML=`
     <div class="kpi" style="border:2px solid #dc2626">
       <small>P1</small>
@@ -1110,7 +1130,6 @@ function renderPotential(){
     </div>
   `;
 
-  // P1, P2, P3 saja yang dirinci.
   ["P1","P2","P3"].forEach(p=>{
     const rows=potentialData.filter(x=>
       String(x.priority||"").trim().toUpperCase()===p
@@ -1127,13 +1146,13 @@ function renderPotential(){
           <td>${esc(x.name)}</td>
           <td>${esc(x.customer)}</td>
           <td>${esc(x.phone)}</td>
+          <td>${esc(x.source||"-")}</td>
           <td>${esc(String(x.date).slice(0,10))}</td>
         </tr>
-      `).join(""):`<tr><td colspan="4">Tidak ada data.</td></tr>`;
+      `).join(""):`<tr><td colspan="5">Tidak ada data.</td></tr>`;
     }
   });
 
-  // Pastikan tidak ada rincian RO/NFR yang dirender.
   if($("pcRO")) $("pcRO").innerHTML="";
   if($("pcNFR")) $("pcNFR").innerHTML="";
 }
@@ -1424,6 +1443,6 @@ function init(){
 
 init();
 </script>
-<!-- Daily detail field is supported by the matching Apps Script backend. -->
+<!-- Daily detail + unique Potential Customer by phone + source are supported by the matching Apps Script backend. -->
 </body>
 </html>
