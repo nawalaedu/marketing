@@ -1,0 +1,2723 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Nawala Education — Pendapatan Marketing
+  </title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
+      background:
+        linear-gradient(
+          135deg,
+          #f8fafc,
+          #eef2ff
+        );
+      color: #172033;
+    }
+
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background:
+        linear-gradient(
+          135deg,
+          #0f172a,
+          #312e81,
+          #4f46e5
+        );
+      color: white;
+      box-shadow:
+        0 10px 30px
+        rgba(15, 23, 42, .18);
+    }
+
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 18px 24px;
+    }
+
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(
+          135deg,
+          #22d3ee,
+          #6366f1
+        );
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow:
+        0 8px 20px
+        rgba(34, 211, 238, .25);
+    }
+
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+
+    .brand-subtitle {
+      margin-top: 3px;
+      font-size: 12px;
+      opacity: .75;
+    }
+
+
+    .container {
+      width:
+        min(
+          calc(100% - 30px),
+          1180px
+        );
+      margin: 30px auto 50px;
+    }
+
+
+    .hero {
+      display: grid;
+      grid-template-columns:
+        1.4fr .8fr;
+      gap: 30px;
+      align-items: center;
+
+      padding: 45px;
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #312e81 45%,
+          #4f46e5 75%,
+          #0891b2 100%
+        );
+
+      color: white;
+
+      box-shadow:
+        0 25px 60px
+        rgba(49, 46, 129, .22);
+    }
+
+
+    .hero h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -.8px;
+    }
+
+
+    .hero p {
+      margin:
+        18px 0 0;
+      max-width: 650px;
+      line-height: 1.7;
+      color:
+        rgba(255,255,255,.78);
+    }
+
+
+    .hero-art {
+      display: flex;
+      justify-content: center;
+    }
+
+
+    .hero-art svg {
+      width: 100%;
+      max-width: 300px;
+    }
+
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        1.25fr .75fr;
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow:
+        0 15px 40px
+        rgba(15,23,42,.07);
+    }
+
+
+    .card-title {
+      margin: 0;
+      font-size: 21px;
+    }
+
+
+    .card-description {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.6;
+      margin:
+        8px 0 22px;
+    }
+
+
+    .form-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, 1fr);
+      gap: 17px;
+    }
+
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+
+    label {
+      font-size: 13px;
+      font-weight: 750;
+      color: #334155;
+    }
+
+
+    input,
+    select {
+      width: 100%;
+      border:
+        1px solid #cbd5e1;
+      border-radius: 13px;
+      padding:
+        13px 14px;
+      background: white;
+      color: #0f172a;
+      font-size: 14px;
+      outline: none;
+      transition: .2s;
+    }
+
+
+    input:focus,
+    select:focus {
+      border-color:
+        #6366f1;
+      box-shadow:
+        0 0 0 4px
+        rgba(99,102,241,.10);
+    }
+
+
+    .conditional {
+      display: none;
+    }
+
+
+    .conditional.show {
+      display: flex;
+    }
+
+
+    .tools-check {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 16px 17px;
+      border:
+        1px solid #c7d2fe;
+      background:
+        linear-gradient(
+          135deg,
+          #eef2ff,
+          #ecfeff
+        );
+      border-radius: 15px;
+    }
+
+
+    .tools-check.show {
+      display: flex;
+    }
+
+    .backdate-box {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 15px 17px;
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      border-radius: 15px;
+    }
+
+    .backdate-box.show {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .backdate-description {
+      font-size: 12px;
+      color: #9a3412;
+      line-height: 1.5;
+    }
+
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #1e293b;
+      font-weight: 700;
+    }
+
+
+    .checkbox-label input {
+      width: 19px;
+      height: 19px;
+      accent-color: #4f46e5;
+      cursor: pointer;
+    }
+
+
+    .checkbox-description {
+      margin:
+        5px 0 0 30px;
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+      margin-top: 20px;
+    }
+
+
+    .btn:hover {
+      transform:
+        translateY(-1px);
+    }
+
+
+    .btn:disabled {
+      opacity: .55;
+      cursor: wait;
+      transform: none;
+    }
+
+
+    .btn-primary {
+      background:
+        linear-gradient(
+          135deg,
+          #4f46e5,
+          #7c3aed
+        );
+      color: white;
+      box-shadow:
+        0 10px 22px
+        rgba(79,70,229,.22);
+    }
+
+
+    .btn-secondary {
+      background:
+        linear-gradient(
+          135deg,
+          #0891b2,
+          #2563eb
+        );
+      color: white;
+    }
+
+
+    .generate-box {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+
+    .loading {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+    }
+
+
+    .loading.show {
+      display: flex;
+    }
+
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border:
+        3px solid #e2e8f0;
+      border-top-color:
+        #4f46e5;
+      animation:
+        spin .8s linear infinite;
+    }
+
+
+    @keyframes spin {
+
+      to {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    .notice {
+      display: none;
+      margin-top: 15px;
+      padding: 13px 15px;
+      border-radius: 13px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+
+    .notice.show {
+      display: block;
+    }
+
+
+    .notice.success {
+      background: #ecfdf5;
+      color: #047857;
+      border:
+        1px solid #a7f3d0;
+    }
+
+
+    .notice.error {
+      background: #fef2f2;
+      color: #b91c1c;
+      border:
+        1px solid #fecaca;
+    }
+
+
+    .report {
+      display: none;
+      margin-top: 22px;
+    }
+
+
+    .report.show {
+      display: block;
+    }
+
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+
+    .report-header h2 {
+      margin: 0;
+    }
+
+
+    .report-date {
+      margin-top: 5px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+
+    .pdf-link {
+      display: none;
+      text-decoration: none;
+      background:
+        linear-gradient(
+          135deg,
+          #16a34a,
+          #059669
+        );
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+
+    .pdf-link.show {
+      display: inline-block;
+    }
+
+
+    .stats {
+      display: grid;
+      grid-template-columns:
+        repeat(4, 1fr);
+      gap: 15px;
+    }
+
+
+    .stat {
+      background: white;
+      border:
+        1px solid #e2e8f0;
+      border-radius: 19px;
+      padding: 21px;
+      box-shadow:
+        0 10px 25px
+        rgba(15,23,42,.05);
+    }
+
+
+    .stat-label {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+
+    .stat-value {
+      margin-top: 8px;
+      font-size: 21px;
+      font-weight: 900;
+      color: #172033;
+    }
+
+    .stat-sub {
+      margin-top: 5px;
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+
+    .target-stat {
+      background:
+        linear-gradient(
+          135deg,
+          #eef2ff,
+          #ecfeff
+        );
+      border-color:
+        #c7d2fe;
+    }
+
+
+    .achievement-stat {
+      background:
+        linear-gradient(
+          135deg,
+          #ecfdf5,
+          #f0fdf4
+        );
+      border-color:
+        #bbf7d0;
+    }
+
+
+    .achievement-value {
+      color:
+        #047857;
+    }
+
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns:
+        1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+
+    .chart-card,
+    .category-card,
+    .info-box {
+      background: white;
+      border:
+        1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 23px;
+      box-shadow:
+        0 10px 25px
+        rgba(15,23,42,.05);
+    }
+
+
+    .section-title {
+      margin: 0 0 17px;
+      font-size: 17px;
+    }
+
+
+    .bar-row {
+      display: grid;
+      grid-template-columns:
+        90px 1fr 110px;
+      align-items: center;
+      gap: 10px;
+      margin:
+        13px 0;
+    }
+
+
+    .bar-name {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    .bar-track {
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          90deg,
+          #4f46e5,
+          #06b6d4
+        );
+      width: 0%;
+      transition:
+        width .5s ease;
+    }
+
+
+    .bar-value {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    .category-list {
+      display: grid;
+      gap: 10px;
+    }
+
+
+    .category-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px;
+      background: #f8fafc;
+      border-radius: 13px;
+    }
+
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+
+    .category-total {
+      font-size: 13px;
+      font-weight: 900;
+      color: #4f46e5;
+    }
+
+
+    .top-info {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+
+    .info-label {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+
+    .info-value {
+      margin-top: 8px;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+
+
+    .stats-main { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
+    .stat-primary { min-height: 145px; display:flex; flex-direction:column; justify-content:center; }
+    .stat-primary .stat-value { font-size:30px; }
+    .dashboard-single { grid-template-columns:1fr; }
+    .section-caption { color:#64748b; font-size:13px; line-height:1.5; margin:-9px 0 18px; }
+    .category-item { display:grid; grid-template-columns:1fr 120px 150px; gap:14px; align-items:center; padding:15px 16px; border:1px solid #eef2f7; }
+    .category-meta { color:#64748b; font-size:12px; font-weight:700; text-align:center; }
+    .category-total { text-align:right; font-size:14px; }
+    .achievement-status.pending { background:#fff7ed; color:#c2410c; }
+
+    @media (
+      max-width: 1100px
+    ) {
+
+      .stats {
+        grid-template-columns:
+          repeat(3, 1fr);
+      }
+
+    }
+
+
+    @media (
+      max-width: 900px
+    ) {
+
+      .hero,
+      .grid,
+      .dashboard-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+
+      .stats {
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+
+    }
+
+
+    @media (
+      max-width: 600px
+    ) {
+
+      .container {
+        width:
+          min(
+            calc(100% - 20px),
+            1180px
+          );
+        margin-top: 15px;
+      }
+
+
+      .header-inner {
+        padding:
+          14px 15px;
+      }
+
+
+      .hero {
+        padding: 27px;
+        border-radius: 22px;
+      }
+
+
+      .hero h1 {
+        font-size: 31px;
+      }
+
+
+      .form-grid,
+      .stats,
+      .top-info {
+        grid-template-columns:
+          1fr;
+      }
+
+
+      .field.full {
+        grid-column:
+          auto;
+      }
+
+
+      .report-header {
+        align-items:
+          flex-start;
+        flex-direction:
+          column;
+      }
+
+
+      .stats-main,
+      .category-item { grid-template-columns:1fr 90px; }
+      .category-total { grid-column:2; grid-row:1; }
+      .category-meta { text-align:left; }
+
+      .bar-row {
+        grid-template-columns:
+          75px 1fr;
+      }
+
+
+      .bar-value {
+        grid-column: 2;
+        text-align: left;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ========================================================
+       HEADER
+       ======================================================== -->
+
+  <header class="header">
+
+    <div class="header-inner">
+
+      <div class="brand">
+
+        <div class="brand-logo">
+          N
+        </div>
+
+        <div>
+
+          <div class="brand-title">
+            Nawala Education
+          </div>
+
+          <div class="brand-subtitle">
+            Sistem Pendapatan Marketing
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main class="container">
+
+
+    <!-- ======================================================
+         HERO
+         ====================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <h1>
+          Pencatatan Pendapatan
+          Marketing
+        </h1>
+
+        <p>
+          Catat transaksi dengan cepat,
+          simpan otomatis ke database,
+          lalu buat resi pendapatan
+          berdasarkan tanggal yang dipilih.
+        </p>
+
+      </div>
+
+
+      <div class="hero-art">
+
+        <svg
+          viewBox="0 0 300 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+
+          <rect
+            x="50"
+            y="35"
+            width="180"
+            height="125"
+            rx="20"
+            fill="rgba(255,255,255,.12)"
+          />
+
+          <rect
+            x="75"
+            y="60"
+            width="80"
+            height="12"
+            rx="6"
+            fill="rgba(255,255,255,.65)"
+          />
+
+          <rect
+            x="75"
+            y="87"
+            width="125"
+            height="9"
+            rx="4.5"
+            fill="rgba(255,255,255,.25)"
+          />
+
+          <rect
+            x="75"
+            y="108"
+            width="95"
+            height="9"
+            rx="4.5"
+            fill="rgba(255,255,255,.25)"
+          />
+
+          <circle
+            cx="205"
+            cy="127"
+            r="22"
+            fill="rgba(34,211,238,.75)"
+          />
+
+          <path
+            d="M196 127L203 134L216 118"
+            stroke="white"
+            stroke-width="5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+        </svg>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         FORM
+         ====================================================== -->
+
+    <section class="grid">
+
+
+      <div class="card">
+
+        <h2 class="card-title">
+          Input Transaksi
+        </h2>
+
+        <p class="card-description">
+          Isi data transaksi marketing.
+          Tanggal hari ini otomatis; jika lupa mencatat,
+          aktifkan opsi tanggal sebelumnya.
+        </p>
+
+
+        <form id="transactionForm">
+
+
+          <div class="form-grid">
+
+
+            <!-- MARKETING -->
+
+            <div class="field full">
+
+              <label
+                for="marketing"
+              >
+                Nama Marketing
+              </label>
+
+              <input
+                id="marketing"
+                type="text"
+                placeholder="Masukkan nama marketing"
+                autocomplete="off"
+                required
+              >
+
+            </div>
+
+
+            <!-- KATEGORI -->
+
+            <div class="field">
+
+              <label
+                for="kategori"
+              >
+                Kategori
+              </label>
+
+              <select
+                id="kategori"
+                required
+              >
+
+                <option value="">
+                  Pilih kategori
+                </option>
+
+                <option value="BUKU">
+                  BUKU
+                </option>
+
+                <option value="ARTIKEL">
+                  ARTIKEL
+                </option>
+
+                <option value="IJP">
+                  IJP
+                </option>
+
+                <option value="OLAH DATA">
+                  OLAH DATA
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- ORDER TYPE -->
+
+            <div class="field">
+
+              <label
+                for="orderType"
+              >
+                Order Type
+              </label>
+
+              <select
+                id="orderType"
+                required
+              >
+
+                <option value="">
+                  Pilih order type
+                </option>
+
+                <option value="ORDER LAMA">
+                  ORDER LAMA
+                </option>
+
+                <option value="ORDER BARU">
+                  ORDER BARU
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- JUDUL / DETAIL -->
+
+            <div
+              id="judulDetailField"
+              class="field full conditional"
+            >
+
+              <label
+                id="judulDetailLabel"
+                for="judulDetail"
+              >
+                Judul / Detail
+              </label>
+
+              <input
+                id="judulDetail"
+                type="text"
+                placeholder=""
+              >
+
+            </div>
+
+
+            <!-- CHAPTER -->
+
+            <div
+              id="chapterField"
+              class="field conditional"
+            >
+
+              <label
+                for="chapter"
+              >
+                Chapter
+              </label>
+
+              <input
+                id="chapter"
+                type="text"
+                placeholder="Contoh: Chapter 3"
+              >
+
+            </div>
+
+
+            <!-- AUTHOR -->
+
+            <div
+              id="authorField"
+              class="field conditional"
+            >
+
+              <label
+                for="nomorAuthor"
+              >
+                Nomor Author
+              </label>
+
+              <input
+                id="nomorAuthor"
+                type="text"
+                placeholder="Contoh: 1, 2"
+              >
+
+            </div>
+
+
+            <!-- =================================================
+                 CHECKBOX TOOLS ORDER
+                 HANYA ORDER BARU
+                 ================================================= -->
+
+            <div
+              id="toolsCheck"
+              class="tools-check"
+            >
+
+              <div>
+
+                <label
+                  class="checkbox-label"
+                  for="toolsOrderCheck"
+                >
+
+                  <input
+                    id="toolsOrderCheck"
+                    type="checkbox"
+                  >
+
+                  <span>
+                    Sudah isi Tools Order
+                  </span>
+
+                </label>
+
+
+                <div class="checkbox-description">
+
+                  Centang jika Tools Order
+                  sudah diisi.
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- TANGGAL HISTORIS / LUPA INPUT -->
+
+            <div
+              id="backdateBox"
+              class="backdate-box"
+            >
+              <div>
+                <label class="checkbox-label" for="backdateCheck">
+                  <input id="backdateCheck" type="checkbox">
+                  <span>Input transaksi untuk tanggal sebelumnya</span>
+                </label>
+                <div class="backdate-description">
+                  Gunakan jika transaksi lupa dicatat pada hari sebelumnya.
+                  Tanggal masa depan tidak diperbolehkan.
+                </div>
+              </div>
+
+              <div id="backdateField" class="field conditional">
+                <label for="transactionDate">Tanggal Transaksi</label>
+                <input id="transactionDate" type="date">
+              </div>
+            </div>
+
+
+            <!-- NOMINAL -->
+
+            <div
+              class="field full"
+            >
+
+              <label
+                for="nominal"
+              >
+                Nominal Pendapatan
+              </label>
+
+              <input
+                id="nominal"
+                type="text"
+                inputmode="numeric"
+                placeholder="Contoh: 500000"
+                required
+              >
+
+            </div>
+
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="saveButton"
+          >
+            Simpan Transaksi
+          </button>
+
+
+        </form>
+
+
+        <div
+          id="saveLoading"
+          class="loading"
+        >
+
+          <span class="spinner"></span>
+
+          <span>
+            Menyimpan transaksi...
+          </span>
+
+        </div>
+
+
+        <div
+          id="saveNotice"
+          class="notice"
+        ></div>
+
+
+      </div>
+
+
+      <!-- ====================================================
+           GENERATE
+           ==================================================== -->
+
+      <div class="card">
+
+        <h2 class="card-title">
+          Generate Resi
+        </h2>
+
+        <p class="card-description">
+          Pilih tanggal pendapatan,
+          lalu sistem akan membuat PDF
+          berdasarkan transaksi pada tanggal
+          tersebut.
+        </p>
+
+
+        <div class="generate-box">
+
+          <div class="field">
+
+            <label
+              for="receiptDate"
+            >
+              Tanggal Resi
+            </label>
+
+            <input
+              id="receiptDate"
+              type="date"
+            >
+
+          </div>
+
+
+          <button
+            class="btn btn-secondary"
+            id="generateButton"
+            type="button"
+          >
+            Generate Resi PDF
+          </button>
+
+        </div>
+
+
+        <div
+          id="generateLoading"
+          class="loading"
+        >
+
+          <span class="spinner"></span>
+
+          <span>
+            Membuat resi dan membaca statistik...
+          </span>
+
+        </div>
+
+
+        <div
+          id="generateNotice"
+          class="notice"
+        ></div>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ======================================================
+         REPORT
+         ====================================================== -->
+
+    <section
+      id="reportSection"
+      class="report"
+    >
+
+
+      <div class="card">
+
+
+        <div class="report-header">
+
+          <div>
+
+            <h2>
+              Statistik Pendapatan
+            </h2>
+
+            <div
+              id="reportDate"
+              class="report-date"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <a
+            id="pdfLink"
+            class="pdf-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+          >
+            Buka Resi PDF
+          </a>
+
+        </div>
+        <!-- STATS UTAMA -->
+        <div class="stats stats-main">
+          <div class="stat stat-primary">
+            <div class="stat-label">Total Pendapatan</div>
+            <div id="statTotal" class="stat-value">Rp 0</div>
+            <div class="stat-sub">Total pendapatan pada tanggal yang dipilih</div>
+          </div>
+          <div class="stat stat-primary">
+            <div class="stat-label">Total Transaksi</div>
+            <div id="statTransactions" class="stat-value">0</div>
+            <div class="stat-sub">Jumlah transaksi pada tanggal yang dipilih</div>
+          </div>
+        </div>
+
+        <!-- KATEGORI -->
+
+        <div class="dashboard-grid dashboard-single">
+          <div class="category-card">
+            <h3 class="section-title">Pendapatan per Kategori</h3>
+            <div class="section-caption">Total pendapatan dan jumlah transaksi pada masing-masing kategori.</div>
+            <div id="categoryList" class="category-list"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <div class="footer">
+      Nawala Education · Sistem Pendapatan Marketing
+    </div>
+
+
+  </main>
+
+
+  <script>
+
+
+    /* ========================================================
+       API URL
+       ======================================================== */
+
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbzO1deylY0euNCA6PMQzVzbejTn9N5apPQNdDWVFdy6G8l-b6tYiW9A69XFSMVwZySYpQ/exec";
+
+    /* ========================================================
+       ELEMENT
+       ======================================================== */
+
+    const transactionForm =
+      document.getElementById(
+        "transactionForm"
+      );
+
+
+    const marketingInput =
+      document.getElementById(
+        "marketing"
+      );
+
+
+    const kategoriSelect =
+      document.getElementById(
+        "kategori"
+      );
+
+
+    const orderTypeSelect =
+      document.getElementById(
+        "orderType"
+      );
+
+
+    const judulDetailField =
+      document.getElementById(
+        "judulDetailField"
+      );
+
+
+    const judulDetailLabel =
+      document.getElementById(
+        "judulDetailLabel"
+      );
+
+
+    const judulDetailInput =
+      document.getElementById(
+        "judulDetail"
+      );
+
+
+    const chapterField =
+      document.getElementById(
+        "chapterField"
+      );
+
+
+    const chapterInput =
+      document.getElementById(
+        "chapter"
+      );
+
+
+    const authorField =
+      document.getElementById(
+        "authorField"
+      );
+
+
+    const nomorAuthorInput =
+      document.getElementById(
+        "nomorAuthor"
+      );
+
+
+    const toolsCheck =
+      document.getElementById(
+        "toolsCheck"
+      );
+
+
+    const toolsOrderCheck =
+      document.getElementById(
+        "toolsOrderCheck"
+      );
+
+
+    const backdateBox =
+      document.getElementById(
+        "backdateBox"
+      );
+
+
+    const backdateCheck =
+      document.getElementById(
+        "backdateCheck"
+      );
+
+
+    const backdateField =
+      document.getElementById(
+        "backdateField"
+      );
+
+
+    const transactionDateInput =
+      document.getElementById(
+        "transactionDate"
+      );
+
+
+    const nominalInput =
+      document.getElementById(
+        "nominal"
+      );
+
+
+    const saveButton =
+      document.getElementById(
+        "saveButton"
+      );
+
+
+    const saveLoading =
+      document.getElementById(
+        "saveLoading"
+      );
+
+
+    const saveNotice =
+      document.getElementById(
+        "saveNotice"
+      );
+
+
+    const receiptDate =
+      document.getElementById(
+        "receiptDate"
+      );
+
+
+    const generateButton =
+      document.getElementById(
+        "generateButton"
+      );
+
+
+    const generateLoading =
+      document.getElementById(
+        "generateLoading"
+      );
+
+
+    const generateNotice =
+      document.getElementById(
+        "generateNotice"
+      );
+
+
+    const reportSection =
+      document.getElementById(
+        "reportSection"
+      );
+
+
+    const pdfLink =
+      document.getElementById(
+        "pdfLink"
+      );
+
+
+    /* ========================================================
+       SET DEFAULT DATE
+       ======================================================== */
+
+    const now =
+      new Date();
+
+
+    const localDate =
+      new Date(
+        now.getTime() -
+        now.getTimezoneOffset() *
+        60000
+      )
+        .toISOString()
+        .slice(
+          0,
+          10
+        );
+
+
+    receiptDate.value =
+      localDate;
+
+    transactionDateInput.value = localDate;
+    transactionDateInput.max = localDate;
+
+
+    /* ========================================================
+       UPDATE FORM
+       ======================================================== */
+
+    function updateFormFields() {
+
+      const kategori =
+        kategoriSelect.value;
+
+
+      const orderType =
+        orderTypeSelect.value;
+
+
+      /*
+       * Reset
+       */
+
+      judulDetailField
+        .classList
+        .remove(
+          "show"
+        );
+
+
+      chapterField
+        .classList
+        .remove(
+          "show"
+        );
+
+
+      authorField
+        .classList
+        .remove(
+          "show"
+        );
+
+
+      toolsCheck
+        .classList
+        .remove(
+          "show"
+        );
+
+
+      judulDetailInput.required =
+        false;
+
+
+      chapterInput.required =
+        false;
+
+
+      nomorAuthorInput.required =
+        false;
+
+
+      /*
+       * ORDER LAMA
+       */
+
+      if (
+        orderType ===
+        "ORDER LAMA"
+      ) {
+
+
+        if (
+          kategori ===
+          "BUKU"
+        ) {
+
+          judulDetailField
+            .classList
+            .add(
+              "show"
+            );
+
+          judulDetailLabel
+            .textContent =
+            "Judul Buku";
+
+          judulDetailInput
+            .placeholder =
+            "Masukkan judul buku";
+
+          judulDetailInput.required =
+            true;
+
+
+          chapterField
+            .classList
+            .add(
+              "show"
+            );
+
+          chapterInput.required =
+            true;
+
+        }
+
+
+        else if (
+          kategori ===
+          "ARTIKEL"
+        ) {
+
+          judulDetailField
+            .classList
+            .add(
+              "show"
+            );
+
+          judulDetailLabel
+            .textContent =
+            "Judul Artikel";
+
+          judulDetailInput
+            .placeholder =
+            "Masukkan judul artikel";
+
+          judulDetailInput.required =
+            true;
+
+
+          authorField
+            .classList
+            .add(
+              "show"
+            );
+
+          nomorAuthorInput.required =
+            true;
+
+        }
+
+
+        else if (
+          kategori ===
+          "IJP"
+        ) {
+
+          judulDetailField
+            .classList
+            .add(
+              "show"
+            );
+
+          judulDetailLabel
+            .textContent =
+            "Judul";
+
+          judulDetailInput
+            .placeholder =
+            "Masukkan judul";
+
+          judulDetailInput.required =
+            true;
+
+
+          authorField
+            .classList
+            .add(
+              "show"
+            );
+
+          nomorAuthorInput.required =
+            true;
+
+        }
+
+
+        else if (
+          kategori ===
+          "OLAH DATA"
+        ) {
+
+          judulDetailField
+            .classList
+            .add(
+              "show"
+            );
+
+          judulDetailLabel
+            .textContent =
+            "Detail Pekerjaan";
+
+          judulDetailInput
+            .placeholder =
+            "Masukkan detail pekerjaan";
+
+          judulDetailInput.required =
+            true;
+
+        }
+
+      }
+
+
+      /*
+       * ORDER BARU
+       */
+
+      if (
+        orderType ===
+        "ORDER BARU"
+      ) {
+
+        /*
+         * Checkbox hanya muncul
+         * ketika ORDER BARU.
+         */
+
+        toolsCheck
+          .classList
+          .add(
+            "show"
+          );
+
+      }
+
+    }
+
+
+    backdateCheck
+      .addEventListener(
+        "change",
+        function() {
+          if (backdateCheck.checked) {
+            backdateBox.classList.add("show");
+            backdateField.classList.add("show");
+          } else {
+            backdateBox.classList.remove("show");
+            backdateField.classList.remove("show");
+            transactionDateInput.value = localDate;
+          }
+        }
+      );
+
+
+    kategoriSelect
+      .addEventListener(
+        "change",
+        updateFormFields
+      );
+
+
+    orderTypeSelect
+      .addEventListener(
+        "change",
+        updateFormFields
+      );
+
+
+    /* ========================================================
+       FORMAT RUPIAH
+       ======================================================== */
+
+    function formatRupiah(
+      value
+    ) {
+
+      return (
+        "Rp " +
+        Number(
+          value || 0
+        ).toLocaleString(
+          "id-ID"
+        )
+      );
+
+    }
+
+
+    /* ========================================================
+       FORMAT NUMBER
+       ======================================================== */
+
+    function formatNumber(
+      value
+    ) {
+
+      return Number(
+        value || 0
+      ).toLocaleString(
+        "id-ID"
+      );
+
+    }
+
+
+    /* ========================================================
+       NOTICE
+       ======================================================== */
+
+    function showNotice(
+      element,
+      message,
+      type
+    ) {
+
+      element.textContent =
+        message;
+
+
+      element.className =
+        "notice show " +
+        type;
+
+    }
+
+
+    function hideNotice(
+      element
+    ) {
+
+      element.className =
+        "notice";
+
+      element.textContent =
+        "";
+
+    }
+
+
+    /* ========================================================
+       JSONP API
+       ======================================================== */
+
+    function callAPI(
+      params,
+      timeoutMs = 30000
+    ) {
+
+      return new Promise(
+        function(
+          resolve,
+          reject
+        ) {
+
+          const callbackName =
+            "nawalaCallback_" +
+            Date.now() +
+            "_" +
+            Math.floor(
+              Math.random() *
+              100000
+            );
+
+
+          let finished =
+            false;
+
+
+          const script =
+            document.createElement(
+              "script"
+            );
+
+
+          const query =
+            new URLSearchParams();
+
+
+          Object.keys(
+            params || {}
+          ).forEach(
+            function(key) {
+
+              const value =
+                params[key];
+
+
+              if (
+                value !== undefined &&
+                value !== null
+              ) {
+
+                query.append(
+                  key,
+                  String(value)
+                );
+
+              }
+
+            }
+          );
+
+
+          query.append(
+            "callback",
+            callbackName
+          );
+
+
+          function cleanup() {
+
+            clearTimeout(
+              timer
+            );
+
+
+            try {
+
+              delete window[
+                callbackName
+              ];
+
+            }
+
+            catch (error) {
+
+              window[
+                callbackName
+              ] =
+                undefined;
+
+            }
+
+
+            if (
+              script.parentNode
+            ) {
+
+              script.parentNode
+                .removeChild(
+                  script
+                );
+
+            }
+
+          }
+
+
+          window[
+            callbackName
+          ] =
+            function(response) {
+
+              if (finished) {
+                return;
+              }
+
+
+              finished =
+                true;
+
+
+              cleanup();
+
+
+              resolve(
+                response
+              );
+
+            };
+
+
+          script.onerror =
+            function() {
+
+              if (finished) {
+                return;
+              }
+
+
+              finished =
+                true;
+
+
+              cleanup();
+
+
+              reject(
+                new Error(
+                  "Tidak dapat terhubung ke Apps Script Web App."
+                )
+              );
+
+            };
+
+
+          const timer =
+            setTimeout(
+              function() {
+
+                if (finished) {
+                  return;
+                }
+
+
+                finished =
+                  true;
+
+
+                cleanup();
+
+
+                reject(
+                  new Error(
+                    "Request API timeout. Server Apps Script tidak memberikan respons."
+                  )
+                );
+
+              },
+              timeoutMs
+            );
+
+
+          script.src =
+            API_URL +
+            "?" +
+            query.toString();
+
+
+          script.async =
+            true;
+
+
+          document.body.appendChild(
+            script
+          );
+
+        }
+      );
+
+    }
+
+
+    /* ========================================================
+       SAVE TRANSACTION
+       ======================================================== */
+
+    transactionForm
+      .addEventListener(
+        "submit",
+        async function(event) {
+
+          event.preventDefault();
+
+
+          hideNotice(
+            saveNotice
+          );
+
+
+          const marketing =
+            marketingInput
+              .value
+              .trim();
+
+
+          const kategori =
+            kategoriSelect.value;
+
+
+          const orderType =
+            orderTypeSelect.value;
+
+
+          const judulDetail =
+            judulDetailInput
+              .value
+              .trim();
+
+
+          const chapter =
+            chapterInput
+              .value
+              .trim();
+
+
+          const nomorAuthor =
+            nomorAuthorInput
+              .value
+              .trim();
+
+
+          /*
+           * CHECKBOX
+           *
+           * Dicentang:
+           * Sudah Isi
+           *
+           * Tidak dicentang:
+           * Belum Isi
+           */
+
+          let toolsOrder =
+            "";
+
+
+          if (
+            orderType ===
+            "ORDER BARU"
+          ) {
+
+            toolsOrder =
+              toolsOrderCheck.checked
+                ? "SUDAH"
+                : "BELUM";
+
+          }
+
+
+          const nominal =
+            nominalInput.value
+              .replace(
+                /[^0-9]/g,
+                ""
+              );
+
+
+          /* --------------------------------------------------
+             VALIDASI
+             -------------------------------------------------- */
+
+          if (!marketing) {
+
+            showNotice(
+              saveNotice,
+              "Nama marketing wajib diisi.",
+              "error"
+            );
+
+            marketingInput.focus();
+
+            return;
+
+          }
+
+
+          if (!kategori) {
+
+            showNotice(
+              saveNotice,
+              "Silakan pilih kategori.",
+              "error"
+            );
+
+            kategoriSelect.focus();
+
+            return;
+
+          }
+
+
+          if (!orderType) {
+
+            showNotice(
+              saveNotice,
+              "Silakan pilih order type.",
+              "error"
+            );
+
+            orderTypeSelect.focus();
+
+            return;
+
+          }
+
+
+          if (
+            !nominal ||
+            Number(nominal) <= 0
+          ) {
+
+            showNotice(
+              saveNotice,
+              "Nominal harus lebih dari 0.",
+              "error"
+            );
+
+            nominalInput.focus();
+
+            return;
+
+          }
+
+          const tanggalTransaksi =
+            backdateCheck.checked
+              ? transactionDateInput.value
+              : localDate;
+
+          if (!tanggalTransaksi) {
+            showNotice(saveNotice, "Silakan pilih tanggal transaksi.", "error");
+            transactionDateInput.focus();
+            return;
+          }
+
+          if (tanggalTransaksi > localDate) {
+            showNotice(saveNotice, "Tanggal transaksi tidak boleh di masa depan.", "error");
+            transactionDateInput.focus();
+            return;
+          }
+
+
+          /* --------------------------------------------------
+             LOADING
+             -------------------------------------------------- */
+
+          saveButton.disabled =
+            true;
+
+
+          saveLoading
+            .classList
+            .add(
+              "show"
+            );
+
+
+          try {
+
+            const result =
+              await callAPI({
+
+                action:
+                  "save",
+
+                marketing:
+                  marketing,
+
+                kategori:
+                  kategori,
+
+                orderType:
+                  orderType,
+
+                judulDetail:
+                  judulDetail,
+
+                chapter:
+                  chapter,
+
+                nomorAuthor:
+                  nomorAuthor,
+
+                toolsOrder:
+                  toolsOrder,
+
+                nominal:
+                  nominal,
+
+                tanggalTransaksi:
+                  tanggalTransaksi
+
+              });
+
+
+            if (
+              !result ||
+              result.success !== true
+            ) {
+
+              throw new Error(
+                result &&
+                result.message
+                  ? result.message
+                  : "Gagal menyimpan transaksi."
+              );
+
+            }
+
+
+            showNotice(
+              saveNotice,
+              "Transaksi berhasil disimpan untuk tanggal " + tanggalTransaksi + ". Waktu dicatat otomatis oleh server.",
+              "success"
+            );
+
+
+            /*
+             * Reset form
+             */
+
+            transactionForm.reset();
+            backdateCheck.checked = false;
+            backdateBox.classList.remove("show");
+            backdateField.classList.remove("show");
+            transactionDateInput.value = localDate;
+
+
+            updateFormFields();
+
+          }
+
+
+          catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            showNotice(
+              saveNotice,
+              "Gagal menyimpan transaksi. " +
+              (
+                error.message ||
+                error
+              ),
+              "error"
+            );
+
+          }
+
+
+          finally {
+
+            saveButton.disabled =
+              false;
+
+
+            saveLoading
+              .classList
+              .remove(
+                "show"
+              );
+
+          }
+
+        }
+      );
+
+
+    /* ========================================================
+       GENERATE RECEIPT
+       ======================================================== */
+
+    generateButton
+      .addEventListener(
+        "click",
+        async function() {
+
+          hideNotice(
+            generateNotice
+          );
+
+
+          const date =
+            receiptDate.value;
+
+
+          if (!date) {
+
+            showNotice(
+              generateNotice,
+              "Silakan pilih tanggal resi.",
+              "error"
+            );
+
+            receiptDate.focus();
+
+            return;
+
+          }
+
+
+          generateButton.disabled =
+            true;
+
+
+          generateLoading
+            .classList
+            .add(
+              "show"
+            );
+
+
+          try {
+
+            const result =
+              await callAPI({
+
+                action:
+                  "generate",
+
+                date:
+                  date
+
+              });
+
+
+            if (
+              !result ||
+              result.success !== true
+            ) {
+
+              throw new Error(
+                result &&
+                result.message
+                  ? result.message
+                  : "Gagal membuat resi."
+              );
+
+            }
+
+
+            renderReport(
+              result.report,
+              result,
+              date
+            );
+
+
+            showNotice(
+              generateNotice,
+              "Resi berhasil dibuat untuk " +
+              result.report.displayDate +
+              ".",
+              "success"
+            );
+
+          }
+
+
+          catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            showNotice(
+              generateNotice,
+              "Gagal membuat resi. " +
+              (
+                error.message ||
+                error
+              ),
+              "error"
+            );
+
+          }
+
+
+          finally {
+
+            generateButton.disabled =
+              false;
+
+
+            generateLoading
+              .classList
+              .remove(
+                "show"
+              );
+
+          }
+
+        }
+      );
+
+
+    /* ========================================================
+       RENDER REPORT
+       ======================================================== */
+
+    function renderReport(report, result, selectedDate) {
+      if (!report) return;
+
+      reportSection.classList.add("show");
+      document.getElementById("reportDate").textContent =
+        "Pendapatan tanggal " + report.displayDate;
+
+      document.getElementById("statTotal").textContent =
+        formatRupiah(Number(report.totalAll || 0));
+
+      document.getElementById("statTransactions").textContent =
+        formatNumber(Number(report.transactionCount || 0));
+
+      if (result && result.pdfUrl) {
+        pdfLink.href = result.pdfUrl;
+        pdfLink.classList.add("show");
+      }
+
+      renderCategoryList(report);
+
+      window.scrollTo({
+        top: reportSection.offsetTop - 20,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* ========================================================
+       CATEGORY LIST
+       ======================================================== */
+
+    function renderCategoryList(report) {
+      const container = document.getElementById("categoryList");
+      container.innerHTML = "";
+
+      ["BUKU", "ARTIKEL", "IJP", "OLAH DATA"].forEach(function(category) {
+        const item = report.categories && report.categories[category]
+          ? report.categories[category]
+          : { total:0, transactionCount:0 };
+
+        const row = document.createElement("div");
+        row.className = "category-item";
+
+        const name = document.createElement("div");
+        name.className = "category-name";
+        name.textContent = category;
+
+        const meta = document.createElement("div");
+        meta.className = "category-meta";
+        meta.textContent = formatNumber(item.transactionCount || 0) + " transaksi";
+
+        const total = document.createElement("div");
+        total.className = "category-total";
+        total.textContent = formatRupiah(item.total || 0);
+
+        row.appendChild(name);
+        row.appendChild(meta);
+        row.appendChild(total);
+        container.appendChild(row);
+      });
+    }
+
+    /* ========================================================
+       FORMAT NOMINAL INPUT
+       ======================================================== */
+
+    nominalInput
+      .addEventListener(
+        "input",
+        function() {
+
+          const raw =
+            this.value.replace(
+              /[^0-9]/g,
+              ""
+            );
+
+
+          if (!raw) {
+
+            this.value =
+              "";
+
+            return;
+
+          }
+
+
+          this.value =
+            Number(
+              raw
+            ).toLocaleString(
+              "id-ID"
+            );
+
+        }
+      );
+
+
+    /* ========================================================
+       INITIAL
+       ======================================================== */
+
+    updateFormFields();
+
+
+  </script>
+
+
+</body>
+
+</html>
