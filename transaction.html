@@ -290,27 +290,6 @@
       display: flex;
     }
 
-    .backdate-box {
-      display: none;
-      grid-column: 1 / -1;
-      padding: 15px 17px;
-      border: 1px solid #fed7aa;
-      background: #fff7ed;
-      border-radius: 15px;
-    }
-
-    .backdate-box.show {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .backdate-description {
-      font-size: 12px;
-      color: #9a3412;
-      line-height: 1.5;
-    }
-
 
     .checkbox-label {
       display: flex;
@@ -558,43 +537,6 @@
       color: #172033;
     }
 
-    .stat-sub {
-      margin-top: 5px;
-      font-size: 11px;
-      color: #94a3b8;
-      line-height: 1.4;
-    }
-
-
-    .target-stat {
-      background:
-        linear-gradient(
-          135deg,
-          #eef2ff,
-          #ecfeff
-        );
-      border-color:
-        #c7d2fe;
-    }
-
-
-    .achievement-stat {
-      background:
-        linear-gradient(
-          135deg,
-          #ecfdf5,
-          #f0fdf4
-        );
-      border-color:
-        #bbf7d0;
-    }
-
-
-    .achievement-value {
-      color:
-        #047857;
-    }
-
 
     .dashboard-grid {
       display: grid;
@@ -734,29 +676,6 @@
     }
 
 
-
-    .stats-main { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
-    .stat-primary { min-height: 145px; display:flex; flex-direction:column; justify-content:center; }
-    .stat-primary .stat-value { font-size:30px; }
-    .dashboard-single { grid-template-columns:1fr; }
-    .section-caption { color:#64748b; font-size:13px; line-height:1.5; margin:-9px 0 18px; }
-    .category-item { display:grid; grid-template-columns:1fr 120px 150px; gap:14px; align-items:center; padding:15px 16px; border:1px solid #eef2f7; }
-    .category-meta { color:#64748b; font-size:12px; font-weight:700; text-align:center; }
-    .category-total { text-align:right; font-size:14px; }
-    .achievement-status.pending { background:#fff7ed; color:#c2410c; }
-
-    @media (
-      max-width: 1100px
-    ) {
-
-      .stats {
-        grid-template-columns:
-          repeat(3, 1fr);
-      }
-
-    }
-
-
     @media (
       max-width: 900px
     ) {
@@ -829,11 +748,6 @@
           column;
       }
 
-
-      .stats-main,
-      .category-item { grid-template-columns:1fr 90px; }
-      .category-total { grid-column:2; grid-row:1; }
-      .category-meta { text-align:left; }
 
       .bar-row {
         grid-template-columns:
@@ -996,8 +910,8 @@
 
         <p class="card-description">
           Isi data transaksi marketing.
-          Tanggal hari ini otomatis; jika lupa mencatat,
-          aktifkan opsi tanggal sebelumnya.
+          Tanggal dan waktu transaksi
+          dibuat otomatis oleh server.
         </p>
 
 
@@ -1028,7 +942,7 @@
             </div>
 
 
-            <!-- KATEGORI -->
+            <!-- KATEGORI — CETAK BUKU sudah ditambahkan -->
 
             <div class="field">
 
@@ -1061,6 +975,10 @@
 
                 <option value="OLAH DATA">
                   OLAH DATA
+                </option>
+
+                <option value="CETAK BUKU">
+                  CETAK BUKU
                 </option>
 
               </select>
@@ -1205,30 +1123,6 @@
 
               </div>
 
-            </div>
-
-
-            <!-- TANGGAL HISTORIS / LUPA INPUT -->
-
-            <div
-              id="backdateBox"
-              class="backdate-box"
-            >
-              <div>
-                <label class="checkbox-label" for="backdateCheck">
-                  <input id="backdateCheck" type="checkbox">
-                  <span>Input transaksi untuk tanggal sebelumnya</span>
-                </label>
-                <div class="backdate-description">
-                  Gunakan jika transaksi lupa dicatat pada hari sebelumnya.
-                  Tanggal masa depan tidak diperbolehkan.
-                </div>
-              </div>
-
-              <div id="backdateField" class="field conditional">
-                <label for="transactionDate">Tanggal Transaksi</label>
-                <input id="transactionDate" type="date">
-              </div>
             </div>
 
 
@@ -1407,29 +1301,171 @@
           </a>
 
         </div>
-        <!-- STATS UTAMA -->
-        <div class="stats stats-main">
-          <div class="stat stat-primary">
-            <div class="stat-label">Total Pendapatan</div>
-            <div id="statTotal" class="stat-value">Rp 0</div>
-            <div class="stat-sub">Total pendapatan pada tanggal yang dipilih</div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Total Pendapatan
+            </div>
+
+            <div
+              id="statTotal"
+              class="stat-value"
+            >
+              Rp 0
+            </div>
+
           </div>
-          <div class="stat stat-primary">
-            <div class="stat-label">Total Transaksi</div>
-            <div id="statTransactions" class="stat-value">0</div>
-            <div class="stat-sub">Jumlah transaksi pada tanggal yang dipilih</div>
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Total Transaksi
+            </div>
+
+            <div
+              id="statTransactions"
+              class="stat-value"
+            >
+              0
+            </div>
+
           </div>
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Marketing Aktif
+            </div>
+
+            <div
+              id="statMarketing"
+              class="stat-value"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="stat">
+
+            <div class="stat-label">
+              Resi
+            </div>
+
+            <div
+              id="statReceipt"
+              class="stat-value"
+              style="font-size:15px;"
+            >
+              -
+            </div>
+
+          </div>
+
+
         </div>
 
-        <!-- KATEGORI -->
 
-        <div class="dashboard-grid dashboard-single">
+        <!-- CHART -->
+
+        <div class="dashboard-grid">
+
+
+          <div class="chart-card">
+
+            <h3 class="section-title">
+              Pendapatan per Kategori
+            </h3>
+
+            <div
+              id="categoryChart"
+            ></div>
+
+          </div>
+
+
           <div class="category-card">
-            <h3 class="section-title">Pendapatan per Kategori</h3>
-            <div class="section-caption">Total pendapatan dan jumlah transaksi pada masing-masing kategori.</div>
-            <div id="categoryList" class="category-list"></div>
+
+            <h3 class="section-title">
+              Ringkasan Kategori
+            </h3>
+
+            <div
+              id="categoryList"
+              class="category-list"
+            ></div>
+
           </div>
+
+
         </div>
+
+
+        <!-- INFO -->
+
+        <div class="top-info">
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Marketing Tertinggi
+            </div>
+
+            <div
+              id="topMarketing"
+              class="info-value"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Kategori Tertinggi
+            </div>
+
+            <div
+              id="topCategory"
+              class="info-value"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Rata-rata Transaksi
+            </div>
+
+            <div
+              id="averageTransaction"
+              class="info-value"
+            >
+              Rp 0
+            </div>
+
+          </div>
+
+
+        </div>
+
 
       </div>
 
@@ -1454,6 +1490,7 @@
 
     const API_URL =
       "https://script.google.com/macros/s/AKfycbzO1deylY0euNCA6PMQzVzbejTn9N5apPQNdDWVFdy6G8l-b6tYiW9A69XFSMVwZySYpQ/exec";
+
 
     /* ========================================================
        ELEMENT
@@ -1534,30 +1571,6 @@
     const toolsOrderCheck =
       document.getElementById(
         "toolsOrderCheck"
-      );
-
-
-    const backdateBox =
-      document.getElementById(
-        "backdateBox"
-      );
-
-
-    const backdateCheck =
-      document.getElementById(
-        "backdateCheck"
-      );
-
-
-    const backdateField =
-      document.getElementById(
-        "backdateField"
-      );
-
-
-    const transactionDateInput =
-      document.getElementById(
-        "transactionDate"
       );
 
 
@@ -1644,9 +1657,6 @@
 
     receiptDate.value =
       localDate;
-
-    transactionDateInput.value = localDate;
-    transactionDateInput.max = localDate;
 
 
     /* ========================================================
@@ -1872,22 +1882,6 @@
       }
 
     }
-
-
-    backdateCheck
-      .addEventListener(
-        "change",
-        function() {
-          if (backdateCheck.checked) {
-            backdateBox.classList.add("show");
-            backdateField.classList.add("show");
-          } else {
-            backdateBox.classList.remove("show");
-            backdateField.classList.remove("show");
-            transactionDateInput.value = localDate;
-          }
-        }
-      );
 
 
     kategoriSelect
@@ -2249,8 +2243,8 @@
 
             toolsOrder =
               toolsOrderCheck.checked
-                ? "SUDAH"
-                : "BELUM";
+                ? "Sudah Isi"
+                : "Belum Isi";
 
           }
 
@@ -2329,23 +2323,6 @@
 
           }
 
-          const tanggalTransaksi =
-            backdateCheck.checked
-              ? transactionDateInput.value
-              : localDate;
-
-          if (!tanggalTransaksi) {
-            showNotice(saveNotice, "Silakan pilih tanggal transaksi.", "error");
-            transactionDateInput.focus();
-            return;
-          }
-
-          if (tanggalTransaksi > localDate) {
-            showNotice(saveNotice, "Tanggal transaksi tidak boleh di masa depan.", "error");
-            transactionDateInput.focus();
-            return;
-          }
-
 
           /* --------------------------------------------------
              LOADING
@@ -2392,10 +2369,7 @@
                   toolsOrder,
 
                 nominal:
-                  nominal,
-
-                tanggalTransaksi:
-                  tanggalTransaksi
+                  nominal
 
               });
 
@@ -2417,7 +2391,7 @@
 
             showNotice(
               saveNotice,
-              "Transaksi berhasil disimpan untuk tanggal " + tanggalTransaksi + ". Waktu dicatat otomatis oleh server.",
+              "Transaksi berhasil disimpan. Tanggal dan waktu dicatat otomatis oleh server.",
               "success"
             );
 
@@ -2427,10 +2401,6 @@
              */
 
             transactionForm.reset();
-            backdateCheck.checked = false;
-            backdateBox.classList.remove("show");
-            backdateField.classList.remove("show");
-            transactionDateInput.value = localDate;
 
 
             updateFormFields();
@@ -2551,8 +2521,7 @@
 
             renderReport(
               result.report,
-              result,
-              date
+              result
             );
 
 
@@ -2609,30 +2578,309 @@
        RENDER REPORT
        ======================================================== */
 
-    function renderReport(report, result, selectedDate) {
-      if (!report) return;
+    function renderReport(
+      report,
+      result
+    ) {
 
-      reportSection.classList.add("show");
-      document.getElementById("reportDate").textContent =
-        "Pendapatan tanggal " + report.displayDate;
-
-      document.getElementById("statTotal").textContent =
-        formatRupiah(Number(report.totalAll || 0));
-
-      document.getElementById("statTransactions").textContent =
-        formatNumber(Number(report.transactionCount || 0));
-
-      if (result && result.pdfUrl) {
-        pdfLink.href = result.pdfUrl;
-        pdfLink.classList.add("show");
+      if (!report) {
+        return;
       }
 
-      renderCategoryList(report);
+
+      reportSection
+        .classList
+        .add(
+          "show"
+        );
+
+
+      document.getElementById(
+        "reportDate"
+      ).textContent =
+        "Pendapatan tanggal " +
+        report.displayDate;
+
+
+      document.getElementById(
+        "statTotal"
+      ).textContent =
+        formatRupiah(
+          report.totalAll
+        );
+
+
+      document.getElementById(
+        "statTransactions"
+      ).textContent =
+        formatNumber(
+          report.transactionCount
+        );
+
+
+      document.getElementById(
+        "statMarketing"
+      ).textContent =
+        formatNumber(
+          report.activeMarketingCount
+        );
+
+
+      document.getElementById(
+        "statReceipt"
+      ).textContent =
+        result.receiptNumber ||
+        "-";
+
+
+      /* ------------------------------------------------------
+         PDF
+         ------------------------------------------------------ */
+
+      if (
+        result.pdfUrl
+      ) {
+
+        pdfLink.href =
+          result.pdfUrl;
+
+        pdfLink
+          .classList
+          .add(
+            "show"
+          );
+
+      }
+
+
+      /* ------------------------------------------------------
+         TOP MARKETING
+         ------------------------------------------------------ */
+
+      document.getElementById(
+        "topMarketing"
+      ).textContent =
+        report.topMarketing
+          ? report.topMarketing.marketing
+          : "-";
+
+
+      /* ------------------------------------------------------
+         TOP CATEGORY
+         ------------------------------------------------------ */
+
+      document.getElementById(
+        "topCategory"
+      ).textContent =
+        report.topCategory ||
+        "-";
+
+
+      /* ------------------------------------------------------
+         AVERAGE
+         ------------------------------------------------------ */
+
+      document.getElementById(
+        "averageTransaction"
+      ).textContent =
+        formatRupiah(
+          report.averageTransaction
+        );
+
+
+      renderCategoryChart(
+        report
+      );
+
+
+      renderCategoryList(
+        report
+      );
+
 
       window.scrollTo({
-        top: reportSection.offsetTop - 20,
-        behavior: "smooth"
+        top:
+          reportSection.offsetTop -
+          20,
+        behavior:
+          "smooth"
       });
+
+    }
+
+
+    /* ========================================================
+       CATEGORY CHART
+       ======================================================== */
+
+    function renderCategoryChart(
+      report
+    ) {
+
+      const container =
+        document.getElementById(
+          "categoryChart"
+        );
+
+
+      container.innerHTML =
+        "";
+
+
+      const categories = [
+        "BUKU",
+        "ARTIKEL",
+        "IJP",
+        "OLAH DATA"
+      ];
+
+
+      let max =
+        0;
+
+
+      categories.forEach(
+        function(category) {
+
+          const total =
+            Number(
+              report.categories[
+                category
+              ]
+                ? report.categories[
+                    category
+                  ].total
+                : 0
+            );
+
+
+          max =
+            Math.max(
+              max,
+              total
+            );
+
+        }
+      );
+
+
+      categories.forEach(
+        function(category) {
+
+          const total =
+            Number(
+              report.categories[
+                category
+              ]
+                ? report.categories[
+                    category
+                  ].total
+                : 0
+            );
+
+
+          const row =
+            document.createElement(
+              "div"
+            );
+
+
+          row.className =
+            "bar-row";
+
+
+          const name =
+            document.createElement(
+              "div"
+            );
+
+
+          name.className =
+            "bar-name";
+
+
+          name.textContent =
+            category;
+
+
+          const track =
+            document.createElement(
+              "div"
+            );
+
+
+          track.className =
+            "bar-track";
+
+
+          const fill =
+            document.createElement(
+              "div"
+            );
+
+
+          fill.className =
+            "bar-fill";
+
+
+          const percentage =
+            max > 0
+              ? (
+                  total /
+                  max
+                ) *
+                100
+              : 0;
+
+
+          fill.style.width =
+            percentage +
+            "%";
+
+
+          track.appendChild(
+            fill
+          );
+
+
+          const value =
+            document.createElement(
+              "div"
+            );
+
+
+          value.className =
+            "bar-value";
+
+
+          value.textContent =
+            formatRupiah(
+              total
+            );
+
+
+          row.appendChild(
+            name
+          );
+
+
+          row.appendChild(
+            track
+          );
+
+
+          row.appendChild(
+            value
+          );
+
+
+          container.appendChild(
+            row
+          );
+
+        }
+      );
+
     }
 
 
@@ -2640,36 +2888,105 @@
        CATEGORY LIST
        ======================================================== */
 
-    function renderCategoryList(report) {
-      const container = document.getElementById("categoryList");
-      container.innerHTML = "";
+    function renderCategoryList(
+      report
+    ) {
 
-      ["BUKU", "ARTIKEL", "IJP", "OLAH DATA"].forEach(function(category) {
-        const item = report.categories && report.categories[category]
-          ? report.categories[category]
-          : { total:0, transactionCount:0 };
+      const container =
+        document.getElementById(
+          "categoryList"
+        );
 
-        const row = document.createElement("div");
-        row.className = "category-item";
 
-        const name = document.createElement("div");
-        name.className = "category-name";
-        name.textContent = category;
+      container.innerHTML =
+        "";
 
-        const meta = document.createElement("div");
-        meta.className = "category-meta";
-        meta.textContent = formatNumber(item.transactionCount || 0) + " transaksi";
 
-        const total = document.createElement("div");
-        total.className = "category-total";
-        total.textContent = formatRupiah(item.total || 0);
+      const categories = [
+        "BUKU",
+        "ARTIKEL",
+        "IJP",
+        "OLAH DATA"
+      ];
 
-        row.appendChild(name);
-        row.appendChild(meta);
-        row.appendChild(total);
-        container.appendChild(row);
-      });
+
+      categories.forEach(
+        function(category) {
+
+          const item =
+            report.categories[
+              category
+            ];
+
+
+          const row =
+            document.createElement(
+              "div"
+            );
+
+
+          row.className =
+            "category-item";
+
+
+          const name =
+            document.createElement(
+              "div"
+            );
+
+
+          name.className =
+            "category-name";
+
+
+          name.textContent =
+            category +
+            " · " +
+            (
+              item
+                ? item.transactionCount
+                : 0
+            ) +
+            " transaksi";
+
+
+          const total =
+            document.createElement(
+              "div"
+            );
+
+
+          total.className =
+            "category-total";
+
+
+          total.textContent =
+            formatRupiah(
+              item
+                ? item.total
+                : 0
+            );
+
+
+          row.appendChild(
+            name
+          );
+
+
+          row.appendChild(
+            total
+          );
+
+
+          container.appendChild(
+            row
+          );
+
+        }
+      );
+
     }
+
 
     /* ========================================================
        FORMAT NOMINAL INPUT
