@@ -1716,6 +1716,21 @@
       nomorAuthorInput.required =
         false;
 
+      // Default field Chapter kembali ke mode teks.
+      chapterInput.type =
+        "text";
+      chapterInput.removeAttribute("min");
+      chapterInput.removeAttribute("step");
+      chapterInput.placeholder =
+        "Contoh: Chapter 3";
+
+      const chapterLabelReset =
+        chapterField.querySelector("label");
+      if (chapterLabelReset) {
+        chapterLabelReset.textContent =
+          "Chapter";
+      }
+
 
       /*
        * ORDER LAMA
@@ -1828,6 +1843,64 @@
 
           nomorAuthorInput.required =
             true;
+
+        }
+
+
+        else if (
+          kategori ===
+          "CETAK BUKU"
+        ) {
+
+          judulDetailField
+            .classList
+            .add(
+              "show"
+            );
+
+          judulDetailLabel
+            .textContent =
+            "Judul Cetak Buku";
+
+          judulDetailInput
+            .placeholder =
+            "Masukkan judul cetak buku";
+
+          judulDetailInput.required =
+            true;
+
+          authorField
+            .classList
+            .add(
+              "show"
+            );
+
+          nomorAuthorInput.required =
+            true;
+
+          chapterField
+            .classList
+            .add(
+              "show"
+            );
+
+          chapterInput.type =
+            "number";
+          chapterInput.min =
+            "1";
+          chapterInput.step =
+            "1";
+          chapterInput.placeholder =
+            "Masukkan jumlah";
+          chapterInput.required =
+            true;
+
+          const chapterLabel =
+            chapterField.querySelector("label");
+          if (chapterLabel) {
+            chapterLabel.textContent =
+              "Jumlah";
+          }
 
         }
 
